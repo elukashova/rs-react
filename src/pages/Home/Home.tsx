@@ -1,7 +1,12 @@
 import React from 'react';
+import SearchBar from '../../components/search-bar/SearchBar';
 
 const HomePage: React.FC = () => {
-  return <header>Home page</header>;
+  return (
+    <section className="section">
+      <SearchBar />
+    </section>
+  );
 };
 
 export default HomePage;

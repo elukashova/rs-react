@@ -6,17 +6,15 @@ import HomePage from './pages/Home/Home';
 import AboutPage from './pages/About/About';
 import Main from './pages/Main';
 
-function App() {
+function App(): React.ReactElement {
   return (
-    <>
-      <Routes>
-        <Route path="/" element={<Main />}>
-          <Route index element={<HomePage />} />
-          <Route path="about" element={<AboutPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
-      </Routes>
-    </>
+    <Routes>
+      <Route path="/" element={<Main />}>
+        <Route index element={<HomePage />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
   );
 }
 
