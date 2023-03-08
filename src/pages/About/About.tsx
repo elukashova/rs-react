@@ -1,5 +1,7 @@
 import React from 'react';
 
-export const AboutPage = () => {
+const AboutPage: React.FC = () => {
   return <header>About page</header>;
 };
+
+export default AboutPage;
