@@ -4,13 +4,7 @@ import './SearchBar.styles.css';
 const SearchBar: React.FC = () => {
   return (
     <div className="search__wrapper">
-      <input
-        className="search__input"
-        type="text"
-        placeholder="Search..."
-        autoComplete="off"
-        autoFocus
-      />
+      <input className="search__input" type="text" placeholder="Search..." autoComplete="off" />
       <button className="search__button">
         <svg className="search__icon" aria-hidden="true" viewBox="0 0 24 24">
           <g>

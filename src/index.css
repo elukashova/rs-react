@@ -51,3 +51,9 @@ a {
   font-weight: 500;
   text-decoration: inherit;
 }
+
+button {
+  background: none;
+  outline: none;
+  border: none;
+}
