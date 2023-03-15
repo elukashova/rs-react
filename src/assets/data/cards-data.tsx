@@ -10,7 +10,7 @@ import img8 from '../images/garibaldi.jpg';
 
 const data: CardType[] = [
   {
-    id: 1,
+    id: 'azzoni',
     image: img1,
     alt: 'mountain hut with the mountains in the background',
     name: 'Azzoni hut',
@@ -20,7 +20,7 @@ const data: CardType[] = [
     description: 'A hut on the top of Resegone summit with a breathtaking view',
   },
   {
-    id: 2,
+    id: 'albani',
     image: img2,
     alt: 'mountain hut with the mountains in the background',
     name: 'Albani hut',
@@ -30,7 +30,7 @@ const data: CardType[] = [
     description: 'A beautiful mountain hut at the foot of Presolana mountain',
   },
   {
-    id: 3,
+    id: 'tonolini',
     image: img3,
     alt: 'mountain hut with the mountains in the background',
     name: 'Tonolini hut',
@@ -40,7 +40,7 @@ const data: CardType[] = [
     description: 'A mountain hut in the heart of the magnificent Adamello Park',
   },
   {
-    id: 4,
+    id: 'benigni',
     image: img4,
     alt: 'mountain hut with the mountains in the background',
     name: 'Benigni hut',
@@ -50,7 +50,7 @@ const data: CardType[] = [
     description: 'A small hut inside the Bergamo Orobie Park with a 360 view',
   },
   {
-    id: 5,
+    id: 'quinto',
     image: img5,
     alt: 'mountain hut with the mountains in the background',
     name: 'Quinto Alpini hut',
@@ -60,7 +60,7 @@ const data: CardType[] = [
     description: 'A beautiful hut among the peaks of Ortles-Cevedale group',
   },
   {
-    id: 6,
+    id: 'campione',
     image: img6,
     alt: 'mountain hut with the mountains in the background',
     name: 'Campione hut',
@@ -70,7 +70,7 @@ const data: CardType[] = [
     description: 'A hut at the border between Scalve and Camonica valleys',
   },
   {
-    id: 7,
+    id: 'coca',
     image: img7,
     alt: 'mountain hut with the mountains in the background',
     name: 'Coca hut',
@@ -80,7 +80,7 @@ const data: CardType[] = [
     description: 'A small hut in one of the most stunning spots in the Orobie',
   },
   {
-    id: 8,
+    id: 'garibaldi',
     image: img8,
     alt: 'mountain hut with the mountains in the background',
     name: 'Garibaldi hut',

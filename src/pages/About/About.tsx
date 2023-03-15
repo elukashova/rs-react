@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const AboutPage: React.FC = () => {
-  return <section className="section">About page</section>;
-};
+class AboutPage extends Component {
+  render(): JSX.Element {
+    return <section className="section">About page is here</section>;
+  }
+}
 
 export default AboutPage;

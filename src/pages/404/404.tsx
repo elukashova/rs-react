@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const NotFoundPage: React.FC = () => {
-  return <section className="section">404 Not Found page</section>;
-};
+class NotFoundPage extends Component {
+  render(): JSX.Element {
+    return <section className="section">Page not found</section>;
+  }
+}
 
 export default NotFoundPage;

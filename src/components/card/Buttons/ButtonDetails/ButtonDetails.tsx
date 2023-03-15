@@ -1,8 +1,8 @@
 import React from 'react';
 import './ButtonDetails.styles.css';
 
-export default class ButtonDetails extends React.Component {
-  render() {
+class ButtonDetails extends React.Component {
+  render(): JSX.Element {
     return (
       <button type="button" className="btn-details">
         Info
@@ -17,3 +17,5 @@ export default class ButtonDetails extends React.Component {
     );
   }
 }
+
+export default ButtonDetails;

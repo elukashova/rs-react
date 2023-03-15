@@ -1,8 +1,8 @@
 import React from 'react';
 import './ButtonFavorite.styles.css';
 
-export default class ButtonFavorite extends React.Component {
-  render() {
+class ButtonFavorite extends React.Component {
+  render(): JSX.Element {
     return (
       <button type="button" className="btn-favorite">
         <svg className="icon-heart" viewBox="0 0 672 586">
@@ -16,3 +16,5 @@ export default class ButtonFavorite extends React.Component {
     );
   }
 }
+
+export default ButtonFavorite;

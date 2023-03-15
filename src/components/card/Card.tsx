@@ -4,8 +4,8 @@ import ButtonFavorite from './Buttons/ButtonFavorite/ButtonFavorite';
 import './Card.styles.css';
 import CardType from './Card.types';
 
-export default class Card extends React.Component<CardType> {
-  render() {
+class Card extends React.Component<CardType> {
+  render(): JSX.Element {
     return (
       <div className="card">
         <img className="card__image" alt={this.props.alt} src={this.props.image} />
@@ -26,3 +26,5 @@ export default class Card extends React.Component<CardType> {
     );
   }
 }
+
+export default Card;
