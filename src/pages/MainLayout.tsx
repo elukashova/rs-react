@@ -1,14 +1,15 @@
-import React, { Component } from 'react';
-import { Outlet } from 'react-router-dom';
+import React, { Component, ReactNode } from 'react';
 import './MainLayout.styles.css';
 
-class MainLayout extends Component {
+interface MainProps {
+  page: ReactNode;
+}
+
+class MainLayout extends Component<MainProps> {
   render(): JSX.Element {
     return (
       <>
-        <main className="main">
-          <Outlet />
-        </main>
+        <main className="main">{this.props.page}</main>
       </>
     );
   }

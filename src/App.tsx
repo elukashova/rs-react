@@ -4,18 +4,19 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Header from './components/Header/Header';
 import ROUTES from './router/router';
 import MainLayout from './pages/MainLayout';
+import RouteConfig from './router/router.types';
 
 interface AppProps {
   title: string;
   page: ReactNode;
 }
 
-class PageWrapper extends Component<AppProps> {
+class AppWrapper extends Component<AppProps> {
   render(): JSX.Element {
     return (
       <>
         <Header title={this.props.title} />
-        {this.props.page}
+        <MainLayout page={this.props.page} />
       </>
     );
   }
@@ -26,18 +27,16 @@ export default class App extends Component {
     return (
       <BrowserRouter>
         <Routes>
-          <Route path={ROUTES.path} element={ROUTES.element}>
-            {ROUTES.subroutes.map((subroute) => {
-              return (
-                <Route
-                  key={subroute.key}
-                  path={subroute.path}
-                  index={subroute.index}
-                  element={<PageWrapper title={subroute.title} page={subroute.element} />}
-                />
-              );
-            })}
-          </Route>
+          {ROUTES.map((route: RouteConfig) => {
+            return (
+              <Route
+                key={route.key}
+                path={route.path}
+                index={route.index}
+                element={<AppWrapper title={route.title} page={route.element} />}
+              />
+            );
+          })}
         </Routes>
       </BrowserRouter>
     );
