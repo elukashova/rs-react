@@ -7,7 +7,7 @@ import CardType from './Card.types';
 class Card extends React.Component<CardType> {
   render(): JSX.Element {
     return (
-      <div className="card">
+      <div className="card" data-testid="catalogue-card">
         <img className="card__image" alt={this.props.alt} src={this.props.image} />
         <div className="card__bottom">
           <p className="card__name">{this.props.name}</p>

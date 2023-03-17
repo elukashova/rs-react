@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Catalogue from '../../components/Catalogue/Catalogue';
-import SearchBar from '../../components/search-bar/SearchBar';
+import SearchBar from '../../components/SearchBar/SearchBar';
 
 class HomePage extends Component {
   render() {

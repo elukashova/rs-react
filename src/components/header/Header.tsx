@@ -9,10 +9,12 @@ class Header extends Component<{ title: string }> {
         <div className="header__wrapper">
           <h1>{this.props.title}</h1>
           <nav className="menu">
-            <NavLink to="/" end>
+            <NavLink to="/" end data-testid="nav-link">
               Home
             </NavLink>
-            <NavLink to="/about">About us</NavLink>
+            <NavLink to="/about" data-testid="nav-link">
+              About us
+            </NavLink>
           </nav>
         </div>
       </header>
