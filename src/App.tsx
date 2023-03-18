@@ -5,6 +5,7 @@ import Header from './components/Header/Header';
 import ROUTES from './router/router';
 import MainLayout from './pages/MainLayout';
 import RouteConfig from './router/router.types';
+import Footer from './components/Footer/Footer';
 
 interface AppProps {
   title: string;
@@ -17,6 +18,7 @@ class AppWrapper extends Component<AppProps> {
       <>
         <Header title={this.props.title} />
         <MainLayout page={this.props.page} />
+        <Footer />
       </>
     );
   }
