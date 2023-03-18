@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Catalogue from '../../components/Catalogue/Catalogue';
 import SearchBar from '../../components/SearchBar/SearchBar';
-import styles from '../MainLayout.module.css';
+import styles from '../Layout.module.css';
 
 class HomePage extends Component {
   render() {

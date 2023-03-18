@@ -1,43 +1,25 @@
-import React, { Component, ReactNode } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import Header from './components/Header/Header';
 import ROUTES from './router/router';
-import MainLayout from './pages/MainLayout';
-import RouteConfig from './router/router.types';
-import Footer from './components/Footer/Footer';
-
-interface AppProps {
-  title: string;
-  page: ReactNode;
-}
-
-class AppWrapper extends Component<AppProps> {
-  render(): JSX.Element {
-    return (
-      <>
-        <Header title={this.props.title} />
-        <MainLayout page={this.props.page} />
-        <Footer />
-      </>
-    );
-  }
-}
+import './App.css';
 
 export default class App extends Component {
   render(): JSX.Element {
     return (
       <BrowserRouter>
         <Routes>
-          {ROUTES.map((route: RouteConfig) => {
-            return (
-              <Route
-                key={route.key}
-                path={route.path}
-                index={route.index}
-                element={<AppWrapper title={route.title} page={route.element} />}
-              />
-            );
-          })}
+          <Route path={ROUTES.path} element={ROUTES.element}>
+            {ROUTES.subroutes.map((subroute) => {
+              return (
+                <Route
+                  key={subroute.key}
+                  path={subroute.index ? '' : subroute.path}
+                  index={subroute.index}
+                  element={subroute.element}
+                />
+              );
+            })}
+          </Route>
         </Routes>
       </BrowserRouter>
     );

@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Header.module.css';
+import { Route, Routes } from 'react-router-dom';
+import ROUTES from '../../router/router';
 
-class Header extends Component<{ title: string }> {
+class Header extends Component {
   render(): JSX.Element {
     return (
       <header className={styles.header}>
         <div className={styles.wrapper}>
-          <h1>{this.props.title}</h1>
+          <h1>
+            <Routes>
+              {ROUTES.subroutes.map((subroute) => {
+                return <Route key={subroute.key} path={subroute.path} element={subroute.title} />;
+              })}
+            </Routes>
+          </h1>
           <nav className={styles.menu}>
             <NavLink to="/" end data-testid="nav-link">
               Home
