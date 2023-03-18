@@ -1,9 +1,9 @@
-.btn-favorite {
+.btn {
   width: calc(.7em + .8vw);
   height: calc(.7em + .7vw);
 }
 
-.icon-heart {
+.icon {
   width: calc(.7em + .8vw);
   height: calc(.7em + .7vw);
   fill: #FFD6BA;
@@ -11,6 +11,6 @@
   cursor: pointer;
 }
 
-.icon-heart:hover {
+.icon:hover {
   fill: #BEE3DB;
 }

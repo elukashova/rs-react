@@ -1,12 +1,12 @@
 import React from 'react';
-import './ButtonDetails.styles.css';
+import styles from './ButtonDetails.module.css';
 
 class ButtonDetails extends React.Component {
   render(): JSX.Element {
     return (
-      <button type="button" className="btn-details">
+      <button type="button" className={styles.btn}>
         Info
-        <svg className="icon-details" viewBox="0 0 719 664">
+        <svg className={styles.icon} viewBox="0 0 719 664">
           <path
             fillRule="evenodd"
             clipRule="evenodd"

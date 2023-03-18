@@ -1,4 +1,4 @@
-.btn-details {
+.btn {
   padding: .2em .3em;
   display: flex;
   align-items: center;
@@ -12,12 +12,12 @@
   transition: all .3s;
 }
 
-.btn-details:hover {
+.btn:hover {
   background-color: #BEE3DB;
   color: #555B6E;
 }
 
-.icon-details {
+.icon {
   width: calc(.4em + .5vw);
   height: calc(.4em + .4vw);
   padding-bottom: .1em;

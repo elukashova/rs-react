@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import './Header.styles.css';
+import styles from './Header.module.css';
 
 class Header extends Component<{ title: string }> {
   render(): JSX.Element {
     return (
-      <header className="header">
-        <div className="header__wrapper">
+      <header className={styles.header}>
+        <div className={styles.wrapper}>
           <h1>{this.props.title}</h1>
-          <nav className="menu">
+          <nav className={styles.menu}>
             <NavLink to="/" end data-testid="nav-link">
               Home
             </NavLink>

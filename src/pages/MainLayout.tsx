@@ -1,5 +1,5 @@
 import React, { Component, ReactNode } from 'react';
-import './MainLayout.styles.css';
+import styles from './MainLayout.module.css';
 
 interface MainProps {
   page: ReactNode;
@@ -9,7 +9,7 @@ class MainLayout extends Component<MainProps> {
   render(): JSX.Element {
     return (
       <>
-        <main className="main">{this.props.page}</main>
+        <main className={styles.main}>{this.props.page}</main>
       </>
     );
   }

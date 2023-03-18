@@ -1,11 +1,11 @@
 import React from 'react';
-import './ButtonFavorite.styles.css';
+import styles from './ButtonFavorite.module.css';
 
 class ButtonFavorite extends React.Component {
   render(): JSX.Element {
     return (
-      <button type="button" className="btn-favorite">
-        <svg className="icon-heart" viewBox="0 0 672 586">
+      <button type="button" className={styles.btn}>
+        <svg className={styles.icon} viewBox="0 0 672 586">
           <path
             fillRule="evenodd"
             clipRule="evenodd"
