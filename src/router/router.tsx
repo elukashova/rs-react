@@ -25,6 +25,12 @@ const ROUTES: RoutesConfig = {
       element: <AboutPage />,
     },
     {
+      path: 'forms',
+      key: 'forms',
+      title: 'forms',
+      element: <h2>forms</h2>,
+    },
+    {
       path: '*',
       key: 'notFound',
       title: '404 not found',
