@@ -14,28 +14,3 @@
   align-items: center;
   justify-content: space-between;
 }
-
-.menu {
-  width: calc(10% + 3em + 3vw);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1em;
-}
-
-.menu a {
-  text-transform: uppercase;
-  font-weight: 600;
-  font-size: calc(.6em + .6vw);
-  color: #555B6E;
-  transition: color .3s;
-}
-
-.menu a:hover {
-  color: #FFD6BA;
-}
-
-.menu a.active {
-  color: #BEE3DB;
-  pointer-events: none;
-}

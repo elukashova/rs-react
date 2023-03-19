@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import styles from './Header.module.css';
+import './Header.styles.css';
 import { Route, Routes } from 'react-router-dom';
 import ROUTES from '../../router/router';
 import { RouteConfig } from '../../router/router.types';
@@ -17,7 +18,7 @@ class Header extends Component {
               })}
             </Routes>
           </h1>
-          <nav className={styles.menu}>
+          <nav className="menu">
             <NavLink to="/" end data-testid="nav-link">
               Home
             </NavLink>
