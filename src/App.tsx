@@ -9,15 +9,8 @@ export default class App extends Component {
       <BrowserRouter>
         <Routes>
           <Route path={ROUTES.path} element={ROUTES.element}>
-            {ROUTES.subroutes.map((subroute) => {
-              return (
-                <Route
-                  key={subroute.key}
-                  path={subroute.index ? '' : subroute.path}
-                  index={subroute.index}
-                  element={subroute.element}
-                />
-              );
+            {ROUTES.subroutes.map(({ key, index, path, element }) => {
+              return <Route key={key} path={index ? '' : path} index={index} element={element} />;
             })}
           </Route>
         </Routes>

@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import styles from './Header.module.css';
 import { Route, Routes } from 'react-router-dom';
 import ROUTES from '../../router/router';
+import { RouteConfig } from '../../router/router.types';
 
 class Header extends Component {
   render(): JSX.Element {
@@ -11,8 +12,8 @@ class Header extends Component {
         <div className={styles.wrapper}>
           <h1>
             <Routes>
-              {ROUTES.subroutes.map((subroute) => {
-                return <Route key={subroute.key} path={subroute.path} element={subroute.title} />;
+              {ROUTES.subroutes.map(({ key, path, title }: RouteConfig) => {
+                return <Route key={key} path={path} element={title} />;
               })}
             </Routes>
           </h1>

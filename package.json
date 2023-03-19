@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build --base=./",
     "preview": "vite preview",
-    "lint": "eslint . --ext .tsx",
+    "lint": "eslint . --ext .tsx --ext .ts",
     "prepare": "husky install",
     "lintstaged": "lint-staged --relative",
     "coverage": "vitest run --coverage",

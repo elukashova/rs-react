@@ -7,9 +7,8 @@ const length: number = data.length;
 
 describe('<Catalogue />', () => {
   it('renders catalogue', () => {
-    const catalogue = render(<Catalogue />);
+    render(<Catalogue />);
 
-    expect(catalogue).toBeTruthy();
     expect(screen.getAllByTestId('catalogue-card')).toHaveLength(length);
   });
 });

@@ -8,6 +8,6 @@ export interface RouteConfig {
   index?: boolean;
 }
 
-export interface Router extends RouteConfig {
+export interface RoutesConfig extends RouteConfig {
   subroutes: RouteConfig[];
 }

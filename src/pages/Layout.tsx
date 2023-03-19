@@ -4,7 +4,7 @@ import Footer from '../components/Footer/Footer';
 import Header from '../components/Header/Header';
 import styles from './Layout.module.css';
 
-class MainLayout extends Component {
+class Layout extends Component {
   render(): JSX.Element {
     return (
       <>
@@ -18,4 +18,4 @@ class MainLayout extends Component {
   }
 }
 
-export default MainLayout;
+export default Layout;

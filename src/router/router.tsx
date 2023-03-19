@@ -2,13 +2,13 @@ import React from 'react';
 import NotFoundPage from '../pages/404/404';
 import AboutPage from '../pages/About/About';
 import HomePage from '../pages/Home/Home';
-import MainLayout from '../pages/Layout';
-import { Router } from './router.types';
+import Layout from '../pages/Layout';
+import { RoutesConfig } from './router.types';
 
-const ROUTES: Router = {
+const ROUTES: RoutesConfig = {
   path: '/*',
   key: 'app',
-  element: <MainLayout />,
+  element: <Layout />,
   title: '',
   subroutes: [
     {
