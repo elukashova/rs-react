@@ -1,0 +1,16 @@
+.btn {
+  width: calc(.7em + .8vw);
+  height: calc(.7em + .7vw);
+}
+
+.icon {
+  width: calc(.7em + .8vw);
+  height: calc(.7em + .7vw);
+  fill: #FFD6BA;
+  transition: fill .3s linear;
+  cursor: pointer;
+}
+
+.icon:hover {
+  fill: #BEE3DB;
+}
