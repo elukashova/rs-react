@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc --noEmit && vite build --base=./",
+    "build": "npm run lint && tsc --noEmit && vite build --base=./",
     "preview": "vite preview",
-    "lint": "eslint . --ext .tsx --ext .ts",
+    "lint": "eslint . --ext .tsx --ext .tsx",
     "prepare": "husky install",
     "lintstaged": "lint-staged --relative",
     "coverage": "vitest run --coverage",

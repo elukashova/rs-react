@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styles from './Catalogue.module.css';
 import Card from '../Card/Card';
-import data from '../../assets/data/cards-data';
+import data from '../../assets/data/cardsData';
 import CardType from '../Card/Card.types';
 
 class Catalogue extends Component {

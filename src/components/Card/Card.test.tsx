@@ -2,7 +2,7 @@ import React from 'react';
 import Card from './Card';
 import { render, screen } from '@testing-library/react';
 import CardType from './Card.types';
-import data from '../../assets/data/cards-data';
+import data from '../../assets/data/cardsData';
 
 const randomIdx: number = Math.floor(Math.random() * data.length);
 const dataForTest: CardType = data[randomIdx];
