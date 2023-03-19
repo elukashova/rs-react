@@ -1,0 +1,17 @@
+.btn {
+  margin-top: .1em;
+  margin-right: 1em;
+  border: none;
+  background-color: #F4F2F2;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: #F4F2F2;
+}
+
+.icon {
+  height: 1.4em;
+  width: 1.4em;
+  fill: #89B0AE;
+}
