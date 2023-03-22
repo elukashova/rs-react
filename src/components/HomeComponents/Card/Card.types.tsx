@@ -1,4 +1,4 @@
-type CardType = {
+type Hut = {
   id: string;
   image: string;
   alt: string;
@@ -9,4 +9,4 @@ type CardType = {
   description: string;
 };
 
-export default CardType;
+export default Hut;

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import Catalogue from './Catalogue';
 import React from 'react';
-import data from '../../assets/data/cardsData';
+import data from '../../../assets/data/cardsData';
 
 const length: number = data.length;
 
