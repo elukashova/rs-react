@@ -1,12 +1,22 @@
-.rating {
+.rating,
+.stars {
   display: flex;
+  align-items: center;
   gap: .3rem;
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: calc(.5em + .4vw);
+  color: #555B6E;
+}
+
+.stars {
+  padding-bottom: .1em;
 }
 
 .default,
 .ranked {
-  width: calc(.9em + .8vw);
-  height: calc(.9em + .8vw);
+  width: calc(.6em + .5vw);
+  height: calc(.6em + .5vw);
   clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
 }
 

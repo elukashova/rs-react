@@ -6,3 +6,50 @@
   border-radius: 10px;
   box-shadow: #BEE3DB 0px 1px 3px 0px, #89B0AE 0px 1px 2px 0px;
 }
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: .1em;
+}
+
+.image {
+  height: calc(1.8em + 1.8vw);
+  width: calc(1.8em + 1.8vw);
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.name {
+  text-transform: uppercase;
+  color: #555B6E;
+  font-weight: 500;
+  font-size: calc(.6em + .5vw);
+}
+
+.review {
+  display: flex;
+  flex-direction: column;
+  gap: .5em;
+}
+
+.hut,
+.stay {
+  display: flex;
+  align-items: center;
+  gap: .3rem;
+  font-size: calc(.5em + .4vw);
+}
+
+.heading {
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: calc(.5em + .4vw);
+  color: #555B6E;
+}
