@@ -15,6 +15,7 @@ class ReviewCard extends React.Component<Review> {
 
   render(): JSX.Element {
     const { image, name, hut, arrival, departure, rating } = this.props;
+    console.log(rating);
     return (
       <div className={styles.card}>
         <div className={styles.user}>

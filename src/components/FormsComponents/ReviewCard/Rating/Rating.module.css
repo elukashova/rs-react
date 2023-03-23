@@ -4,7 +4,7 @@
   align-items: center;
   gap: .3rem;
   text-transform: uppercase;
-  font-weight: 400;
+  font-weight: 600;
   font-size: calc(.5em + .4vw);
   color: #555B6E;
 }

@@ -1,4 +1,4 @@
-import styles from '../Form.module.css';
+import styles from './Confirmation.module.css';
 import React, { Component } from 'react';
 
 class Confirmation extends Component {

@@ -5,7 +5,7 @@ type Review = {
   departure: string;
   rating: string;
   image: string;
-  privacyConsent: boolean;
+  privacy: boolean;
   id?: number;
 };
 

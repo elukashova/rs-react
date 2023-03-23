@@ -1,0 +1,20 @@
+.submit {
+  width: 100%;
+  margin-top: .5em;
+  padding: .3em;
+  gap: 0.3em;
+  background-color: #89B0AE;
+  border-radius: 5px;
+  border: none;
+  color: #FAF9F9;
+  text-transform: uppercase;
+  font-size: calc(.4em + .5vw);
+  text-align: center;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.submit:hover {
+  background-color: #BEE3DB;
+  color: #555B6E;
+}

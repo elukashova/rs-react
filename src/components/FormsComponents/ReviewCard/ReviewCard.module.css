@@ -28,7 +28,7 @@
 
 .name {
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 600;
   font-size: calc(.6em + .5vw);
   color: #555B6E;
 }
@@ -45,11 +45,13 @@
   align-items: center;
   gap: .3rem;
   font-size: calc(.5em + .4vw);
+  font-weight: 400;
   color: #555B6E;
 }
 
 .heading {
   text-transform: uppercase;
+  font-weight: 600;
 }
 
 .wrapper {
