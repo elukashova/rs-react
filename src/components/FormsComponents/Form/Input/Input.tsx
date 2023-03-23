@@ -7,12 +7,12 @@ type Props = {
   name: string;
   className?: string;
   label?: string;
-  onChange?: () => void;
+  format?: string;
 };
 
 class Input extends Component<Props> {
   render() {
-    const { label, reference, type, name, className, onChange } = this.props;
+    const { label, reference, type, name, className, format } = this.props;
     return (
       <label className={styles.label}>
         {label}
@@ -21,8 +21,7 @@ class Input extends Component<Props> {
           ref={reference}
           type={type}
           name={name}
-          required
-          onChange={onChange}
+          accept={format}
         />
       </label>
     );

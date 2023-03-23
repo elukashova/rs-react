@@ -28,9 +28,9 @@
 
 .name {
   text-transform: uppercase;
-  color: #555B6E;
   font-weight: 500;
   font-size: calc(.6em + .5vw);
+  color: #555B6E;
 }
 
 .review {
@@ -45,11 +45,14 @@
   align-items: center;
   gap: .3rem;
   font-size: calc(.5em + .4vw);
+  color: #555B6E;
 }
 
 .heading {
   text-transform: uppercase;
-  font-weight: 400;
-  font-size: calc(.5em + .4vw);
-  color: #555B6E;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
 }

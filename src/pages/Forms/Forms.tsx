@@ -4,7 +4,7 @@ import Review from '../../components/FormsComponents/ReviewCard/ReviewCard.types
 import ReviewsList from '../../components/FormsComponents/ReviewsList/ReviewsList';
 import styles from '../Layout.module.css';
 
-class FormsPage extends Component<{ reviews: Review[] }> {
+class FormsPage extends Component<{ reviews?: Review[] }> {
   state = {
     reviews: [],
   };

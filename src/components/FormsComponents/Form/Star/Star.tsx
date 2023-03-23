@@ -21,7 +21,6 @@ class StarRadio extends Component<Props> {
           value={rating}
           name="review"
           id={`radio${rating}`}
-          required
         />
       </>
     );

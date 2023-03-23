@@ -33,6 +33,16 @@
   font-family: 'Open Sans', sans-serif;
   color: #212529;
   background: none;
+  appearance: none;
+  outline: none;
+  transition: all .3s;
+}
+
+.input:focus,
+.date:focus {
+  border: 1px solid #89B0AE;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  appearance: none;
 }
 
 .date::-webkit-calendar-picker-indicator {
@@ -110,8 +120,8 @@
 
 .checkbox::before {
   content: '';
-  width: calc(.4em + .3vw);
-  height: calc(.4em + .3vw);
+  width: calc(.43em + .3vw);
+  height: calc(.43em + .3vw);
   transform: scale(0);
   transition: 120ms transform ease-in-out;
   box-shadow: inset 1em 1em #89B0AE;
@@ -133,4 +143,11 @@
 
 .confirmation {
   text-align: center;
+}
+
+.error {
+  color: #89B0AE;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: calc(.4em + .3vw);
 }

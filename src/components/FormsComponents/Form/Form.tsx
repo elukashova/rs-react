@@ -5,13 +5,23 @@ import StarRadio from './Star/Star';
 import Input from './Input/Input';
 import Select from './Select/Select';
 import Confirmation from './Confirmation/Confirmation';
+import { DEFAULT_OPTION, Errors, VALID_NAME } from './Form.consts';
 
 type Props = {
   reviewCallback: (review: Review) => void;
 };
 
 type State = {
-  confirmation: React.ReactNode | boolean;
+  form: {
+    name: boolean;
+    hut: boolean;
+    arrival: boolean;
+    departure: boolean;
+    rating: boolean;
+    image: boolean;
+    privacy: boolean;
+  };
+  confirmation: boolean;
 };
 
 class Form extends Component<Props, State> {
@@ -42,35 +52,45 @@ class Form extends Component<Props, State> {
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
-      confirmation: true,
+      form: {
+        name: true,
+        hut: true,
+        arrival: true,
+        departure: true,
+        rating: true,
+        image: true,
+        privacy: true,
+      },
+      confirmation: false,
     };
   }
 
   handleSubmit(event: SyntheticEvent) {
     event.preventDefault();
 
-    const review: Review = {
-      name: this.nameInput.current?.value ?? '',
-      hut: this.selectHut.current?.value ?? '',
-      arrival: this.arrivalInput.current?.value ?? '',
-      departure: this.departureInput.current?.value ?? '',
-      rating: this.pickRatingValue(),
-      image: this.createAvatarUrl(this.avatarInput) ?? '',
-      privacyConsent: Boolean(this.checkPrivacy.current?.value) ?? '',
-    };
+    if (this.validateForm()) {
+      const review: Review = {
+        name: this.nameInput.current?.value ?? '',
+        hut: this.selectHut.current?.value ?? '',
+        arrival: this.arrivalInput.current?.value ?? '',
+        departure: this.departureInput.current?.value ?? '',
+        rating: this.pickRatingValue(),
+        image: this.createAvatarUrl() ?? '',
+        privacyConsent: Boolean(this.checkPrivacy.current?.checked) ?? '',
+      };
 
-    //this.resetFormInputs();
-    this.showConfirmation();
-    this.resetForm();
-    this.props.reviewCallback(review);
+      this.showConfirmation();
+      this.resetForm();
+      this.props.reviewCallback(review);
+    }
   }
 
-  createAvatarUrl(input: React.RefObject<HTMLInputElement>): string | null {
-    if (!input?.current?.files?.[0]) {
+  createAvatarUrl(): string | null {
+    if (!this.avatarInput.current?.files?.[0]) {
       return null;
     }
 
-    return URL.createObjectURL(input?.current?.files[0]);
+    return URL.createObjectURL(this.avatarInput.current?.files[0]);
   }
 
   pickRatingValue(): string {
@@ -87,63 +107,88 @@ class Form extends Component<Props, State> {
 
   resetForm(): void {
     this.reviewForm.current?.reset();
-    // this.hideConfirmation();
+    setTimeout(() => this.hideConfirmation(), 2000);
   }
 
   showConfirmation(): void {
-    this.setState({
-      confirmation: <Confirmation />,
-    });
-  }
-
-  hideConfirmation(): void {
     this.setState({
       confirmation: true,
     });
   }
 
-  // resetFormInputs(): void {
-  //   [this.nameInput, this.arrivalInput, this.departureInput].forEach((input) =>
-  //     this.resetInput(input)
-  //   );
+  hideConfirmation(): void {
+    this.setState({
+      confirmation: false,
+    });
+  }
 
-  //   this.ratingInputs.forEach((input) => this.resetCheckboxAndRadio(input));
-  // }
+  validateForm(): boolean {
+    const currentState: State = {
+      ...this.state,
+      form: {
+        name: this.validateInput(),
+        hut: this.validateSelectInput(),
+        arrival: Boolean(this.arrivalInput.current?.value),
+        departure: Boolean(this.arrivalInput.current?.value),
+        rating: this.validateRadioInput(),
+        image: Boolean(this.createAvatarUrl()),
+        privacy: Boolean(this.checkPrivacy.current?.checked) ?? '',
+      },
+    };
+    this.setState(currentState);
 
-  // resetInput(input: React.RefObject<HTMLInputElement>): void {
-  //   if (!input.current?.value) {
-  //     return;
-  //   }
+    const isValid: boolean = Object.values(currentState.form).every((value) => value === true);
+    return isValid;
+  }
 
-  //   input.current.value = '';
-  // }
+  validateInput(): boolean {
+    if (!this.nameInput.current?.value || !VALID_NAME.test(this.nameInput.current.value)) {
+      return false;
+    }
+    return true;
+  }
 
-  // resetCheckboxAndRadio(input: React.RefObject<HTMLInputElement>): void {
-  //   if (!input.current?.checked) {
-  //     return;
-  //   }
+  validateSelectInput(): boolean {
+    if (this.selectHut.current?.value === DEFAULT_OPTION) {
+      return false;
+    }
+    return true;
+  }
 
-  //   input.current.checked = false;
-  // }
+  validateRadioInput(): boolean {
+    const isChecked = this.ratingInputs.some((input) => input.current?.checked);
+    return isChecked;
+  }
 
   render(): JSX.Element {
     const ratings: number[] = [5, 4, 3, 2, 1];
-    const dateLabels: string[] = ['From:', 'To;'];
+    const dateLabels: string[] = ['From:', 'To:'];
+    const showError = (message: string): JSX.Element => <p className={styles.error}>{message}</p>;
     return (
       <form className={styles.form} ref={this.reviewForm} onSubmit={this.handleSubmit}>
-        <Input label="Name" reference={this.nameInput} type="text" name="text" />
-        <Select reference={this.selectHut} />
+        <div>
+          <Input label="name" reference={this.nameInput} type="text" name="text" />
+          {showError(this.state.form.name ? '' : `${Errors.required} ${Errors.name}`)}
+        </div>
+        <div>
+          <Select reference={this.selectHut} />
+          {showError(this.state.form.hut ? '' : `${Errors.required}`)}
+        </div>
 
         <div className={styles.stay}>
           {[this.arrivalInput, this.departureInput].map((input, idx) => (
-            <Input
-              key={idx}
-              label={dateLabels[idx]}
-              reference={input}
-              type="date"
-              name="date"
-              className="date"
-            />
+            <div key={idx} className={styles.wrapper}>
+              <Input
+                label={dateLabels[idx]}
+                reference={input}
+                type="date"
+                name="date"
+                className="date"
+              />
+              {showError(
+                this.state.form.arrival && this.state.form.departure ? '' : `${Errors.required}`
+              )}
+            </div>
           ))}
         </div>
 
@@ -154,6 +199,7 @@ class Form extends Component<Props, State> {
               <StarRadio key={num} reference={this.ratingInputs[num - 1]} rating={`${num}`} />
             ))}
           </div>
+          {showError(this.state.form.rating ? '' : `${Errors.required}`)}
         </div>
 
         <div className={styles.avatar}>
@@ -163,22 +209,27 @@ class Form extends Component<Props, State> {
             type="file"
             name="file"
             className="file"
+            format="image/*"
           />
+          {showError(this.state.form.image ? '' : `${Errors.avatar}`)}
         </div>
 
-        <div className={styles.privacy}>
-          <Input
-            reference={this.checkPrivacy}
-            type="checkbox"
-            className="checkbox"
-            name="privacy"
-          />
-          <p>I consent to the processing of my personal data</p>
+        <div className={styles.wrapper}>
+          <div className={styles.privacy}>
+            <Input
+              reference={this.checkPrivacy}
+              type="checkbox"
+              className="checkbox"
+              name="privacy"
+            />
+            <p>I consent to the processing of my personal data</p>
+          </div>
+          {showError(this.state.form.privacy ? '' : `${Errors.required}`)}
         </div>
 
         <>
           <input className={styles.submit} ref={this.submitInput} type="submit" value="Send" />
-          {this.state.confirmation}
+          {this.state.confirmation ? <Confirmation /> : ''}
         </>
       </form>
     );
