@@ -12,7 +12,13 @@ class Submit extends Component<Props> {
     const { refObj, errState } = this.props;
     return (
       <div>
-        <input className={styles.submit} ref={refObj} type="submit" value="Send" />
+        <input
+          className={styles.submit}
+          ref={refObj}
+          type="submit"
+          value="Send"
+          data-testid="submit"
+        />
         {errState ? <Confirmation /> : ''}
       </div>
     );

@@ -1,4 +1,5 @@
 import React from 'react';
+import { RATINGS } from '../../Form/Form.consts';
 import styles from './Rating.module.css';
 
 class Rating extends React.Component<{ rating: string }> {
@@ -18,11 +19,13 @@ class Rating extends React.Component<{ rating: string }> {
       <div className={styles.rating}>
         Review:
         <div className={styles.stars}>
-          <span className={styles[this.defineClass(1)]}></span>
-          <span className={styles[this.defineClass(2)]}></span>
-          <span className={styles[this.defineClass(3)]}></span>
-          <span className={styles[this.defineClass(4)]}></span>
-          <span className={styles[this.defineClass(5)]}></span>
+          {RATINGS.map((rating) => (
+            <span
+              key={rating}
+              data-testid="star"
+              className={styles[this.defineClass(rating)]}
+            ></span>
+          ))}
         </div>
       </div>
     );

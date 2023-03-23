@@ -8,6 +8,8 @@ export enum Errors {
   name = 'The name must contain at least 3 latin letters and start with uppercase letter.',
 }
 
+export const RATINGS: number[] = [5, 4, 3, 2, 1];
+
 export const INPUTS = {
   name: {
     label: 'name',

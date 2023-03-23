@@ -4,7 +4,7 @@ import Review from '../ReviewCard/ReviewCard.types';
 import StarRadio from './Star/Star';
 import Input from './Input/Input';
 import Select from './Select/Select';
-import { DEFAULT_OPTION, Errors, INPUTS, VALID_NAME } from './Form.consts';
+import { DEFAULT_OPTION, Errors, INPUTS, RATINGS, VALID_NAME } from './Form.consts';
 import Submit from './Submit/Submit';
 import ValidationError from './Error/Error';
 
@@ -66,7 +66,7 @@ class Form extends Component<Props, State> {
     };
   }
 
-  handleSubmit(event: SyntheticEvent) {
+  public handleSubmit(event: SyntheticEvent) {
     event.preventDefault();
 
     if (this.validateForm()) {
@@ -162,7 +162,6 @@ class Form extends Component<Props, State> {
   }
 
   render(): JSX.Element {
-    const ratings: number[] = [5, 4, 3, 2, 1];
     const { name, hut, arrival, departure, rating, image, privacy } = this.state.form;
     return (
       <form className={styles.form} ref={this.reviewForm} onSubmit={this.handleSubmit}>
@@ -183,7 +182,7 @@ class Form extends Component<Props, State> {
         <fieldset className={styles.fieldset}>
           <legend className={styles.legend}>Your review</legend>
           <div className={styles.stars}>
-            {ratings.map((num) => (
+            {RATINGS.map((num) => (
               <StarRadio key={num} refObj={this.ratingInputs[num - 1]} rating={`${num}`} />
             ))}
           </div>

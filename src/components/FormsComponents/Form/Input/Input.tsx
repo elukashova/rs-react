@@ -39,6 +39,7 @@ class Input extends Component<Props> {
               type={type}
               name={name}
               accept={format}
+              data-testid={type === 'date' ? type : name}
             />
           </label>
           {name === 'privacy' && <p>I consent to the processing of my personal data</p>}
