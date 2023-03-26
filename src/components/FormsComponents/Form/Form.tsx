@@ -1,27 +1,21 @@
 import styles from './Form.module.css';
 import React, { Component, SyntheticEvent } from 'react';
 import Review from '../ReviewCard/ReviewCard.types';
-import StarRadio from './Star/Star';
-import Input from './Input/Input';
-import Select from './Select/Select';
-import { DEFAULT_OPTION, Errors, INPUTS, RATINGS, VALID_NAME } from './Form.consts';
-import Submit from './Submit/Submit';
 import ValidationError from './Error/Error';
+import { InputsToValidate, Validation } from './Validation/Validation.types';
+import areValidFields from './Validation/Validation.functions';
+import data from '../../../assets/data/cardsData';
+import Hut from '../../HomeComponents/Card/Card.types';
+import { Errors } from './Error/Error.consts';
+import LabelInput from './Input/Input';
+import RadioStar from './RadioStar/Star';
 
 type Props = {
   reviewCallback: (review: Review) => void;
 };
 
 type State = {
-  form: {
-    name: boolean;
-    hut: boolean;
-    arrival: boolean;
-    departure: boolean;
-    rating: boolean;
-    image: boolean;
-    privacy: boolean;
-  };
+  form: Validation;
   confirmation: boolean;
 };
 
@@ -48,18 +42,23 @@ class Form extends Component<Props, State> {
     this.ratingFiveInput,
   ];
 
-  constructor(props: { reviewCallback: (review: Review) => void }) {
+  constructor(props: Props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
 
     this.state = {
       form: {
         name: true,
+        longName: true,
         hut: true,
         arrival: true,
+        realArrival: true,
         departure: true,
+        realDeparture: true,
+        earlyDeparture: true,
         rating: true,
-        image: true,
+        img: true,
+        format: true,
         privacy: true,
       },
       confirmation: false,
@@ -80,10 +79,9 @@ class Form extends Component<Props, State> {
         privacy: Boolean(this.privacyInput.current?.checked) ?? '',
       };
 
-      console.log(review);
       this.handleConfirmation();
-      this.props.reviewCallback(review);
-      this.resetForm();
+      setTimeout(() => this.resetForm(), 500);
+      setTimeout(() => this.props.reviewCallback(review), 1000);
     }
   }
 
@@ -109,7 +107,7 @@ class Form extends Component<Props, State> {
 
   resetForm(): void {
     this.reviewForm.current?.reset();
-    setTimeout(() => this.handleConfirmation(), 2000);
+    setTimeout(() => this.handleConfirmation(), 1000);
   }
 
   handleConfirmation(): void {
@@ -119,84 +117,143 @@ class Form extends Component<Props, State> {
   }
 
   validateForm(): boolean {
+    const inputsToValidate: InputsToValidate = {
+      nameInput: this.nameInput,
+      hutInput: this.selectHut,
+      departureInput: this.departureInput,
+      arrivalInput: this.arrivalInput,
+      ratingInputs: this.ratingInputs,
+      imageInput: this.avatarInput,
+      privacyInput: this.privacyInput,
+    };
+
     const currentState: State = {
       ...this.state,
-      form: {
-        name: this.validateTextInput(),
-        hut: this.validateSelectInput(),
-        arrival: Boolean(this.arrivalInput.current?.value),
-        departure: Boolean(this.arrivalInput.current?.value),
-        rating: this.validateRadioInput(),
-        image: this.validateFileInput(),
-        privacy: Boolean(this.privacyInput.current?.checked) ?? '',
-      },
+      form: { ...areValidFields(inputsToValidate) },
     };
     this.setState(currentState);
 
     return Object.values(currentState.form).every((value) => value === true);
   }
 
-  validateTextInput(): boolean {
-    if (!this.nameInput.current?.value || !VALID_NAME.test(this.nameInput.current.value)) {
-      return false;
-    }
-    return true;
-  }
-
-  validateSelectInput(): boolean {
-    return this.selectHut.current?.value !== DEFAULT_OPTION;
-  }
-
-  validateRadioInput(): boolean {
-    return this.ratingInputs.some((input) => input.current?.checked);
-  }
-
-  validateFileInput(): boolean {
-    if (this.avatarInput.current) {
-      const fileName: string = this.avatarInput.current.value;
-      const idx: number = fileName.lastIndexOf('.') + 1;
-      const ext: string = fileName.substring(idx, fileName.length).toLowerCase();
-      return ['jpg', 'jpeg', 'png'].some((fileExt) => ext === fileExt);
-    }
-    return false;
+  createSelectList(): string[] {
+    const selectDataWithDefault: string[] = ['--Choose a hut--'];
+    data.forEach((item: Hut) => selectDataWithDefault.push(item.name));
+    return selectDataWithDefault;
   }
 
   render(): JSX.Element {
-    const { name, hut, arrival, departure, rating, image, privacy } = this.state.form;
+    const { confirmation } = this.state;
+    const {
+      name,
+      longName,
+      hut,
+      arrival,
+      realArrival,
+      departure,
+      realDeparture,
+      earlyDeparture,
+      rating,
+      img,
+      format,
+      privacy,
+    } = this.state.form;
+    const ratingsDescOrder: number[] = [5, 4, 3, 2, 1];
+    const selectDataWithDefault: string[] = ['--Choose a hut--'];
+    data.forEach((item: Hut) => selectDataWithDefault.push(item.name));
     return (
       <form className={styles.form} ref={this.reviewForm} onSubmit={this.handleSubmit}>
-        <Input {...INPUTS.name} refObj={this.nameInput} errState={name} />
-        <Select refObj={this.selectHut} errState={hut} />
+        <div className={styles.wrapper}>
+          <LabelInput label="name" type="text" id="name" refObj={this.nameInput} />
+          {(!name || !longName) && (
+            <ValidationError error={!name ? '' : !longName ? Errors.name : ''} />
+          )}
+        </div>
+
+        <div className={styles.wrapper}>
+          <legend className={styles.label}>Stayed at</legend>
+          <select className={styles.select} ref={this.selectHut} name="hut">
+            {this.createSelectList().map((item) => (
+              <option key={item}>{item}</option>
+            ))}
+          </select>
+          {!hut && <ValidationError />}
+        </div>
 
         <div className={styles.stay}>
           {[this.arrivalInput, this.departureInput].map((input, idx) => (
-            <Input
-              key={idx}
-              {...(idx === 0 ? { ...INPUTS.arrival } : { ...INPUTS.departure })}
-              refObj={input}
-              errState={idx === 0 ? arrival : departure}
-            />
+            <div key={idx} className={styles.wrapper}>
+              <LabelInput
+                label={idx === 0 ? 'From:' : 'To:'}
+                type="date"
+                refObj={idx === 0 ? this.arrivalInput : this.departureInput}
+                id={idx === 0 ? 'arrival' : 'departure'}
+              />
+              {(idx === 0
+                ? !arrival || !realArrival
+                : !departure || !realDeparture || !earlyDeparture) && (
+                <ValidationError
+                  error={
+                    (idx === 0 ? !arrival : !departure)
+                      ? ''
+                      : (idx === 0 && !realArrival) || (idx === 1 && !realDeparture)
+                      ? Errors.date
+                      : idx === 1 && !earlyDeparture
+                      ? Errors.early
+                      : ''
+                  }
+                />
+              )}
+            </div>
           ))}
         </div>
 
         <fieldset className={styles.fieldset}>
           <legend className={styles.legend}>Your review</legend>
           <div className={styles.stars}>
-            {RATINGS.map((num) => (
-              <StarRadio key={num} refObj={this.ratingInputs[num - 1]} rating={`${num}`} />
+            {ratingsDescOrder.map((num) => (
+              <RadioStar key={num} refObj={this.ratingInputs[num - 1]} rating={`${num}`} />
             ))}
           </div>
-          {!rating && <ValidationError message={Errors.required} />}
+          {!rating && <ValidationError />}
         </fieldset>
 
         <div className={styles.avatar}>
-          <Input {...INPUTS.image} refObj={this.avatarInput} errState={image} />
-        </div>
-        <div className={styles.wrapper}>
-          <Input {...INPUTS.privacy} refObj={this.privacyInput} errState={privacy} />
+          <LabelInput
+            label="Add your avatar"
+            id="name"
+            type="file"
+            refObj={this.avatarInput}
+            accept="image/*"
+          />
+          {(!img || !format) && <ValidationError error={!img ? '' : !format ? Errors.image : ''} />}
         </div>
 
-        <Submit refObj={this.submitInput} errState={this.state.confirmation} />
+        <div className={styles.wrapper}>
+          <div className={styles.privacy}>
+            <input
+              className={styles.checkbox}
+              ref={this.privacyInput}
+              type="checkbox"
+              data-testid="privacy"
+            />
+            <p>I consent to the processing of my personal data</p>
+          </div>
+          {!privacy && <ValidationError />}
+        </div>
+
+        <div>
+          <input
+            className={styles.submit}
+            ref={this.submitInput}
+            type="submit"
+            value="submit"
+            data-testid="submit"
+          />
+          {confirmation && (
+            <p className={styles.confirmation}>Your review has been successfully submitted!</p>
+          )}
+        </div>
       </form>
     );
   }

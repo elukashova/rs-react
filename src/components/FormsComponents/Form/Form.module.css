@@ -27,8 +27,9 @@
   gap: 2em;
 }
 
-.input,
-.date {
+.text,
+.date,
+.select {
   width: 100%;
   padding: .3em;
   border: 1px solid #BEE3DB;
@@ -65,7 +66,7 @@
   align-items: center;
   flex-direction: row-reverse;
   justify-content: left;
-  gap: 1em;
+  gap: calc(.4em + .4vw);
 }
 
 .avatar .label {
@@ -140,11 +141,39 @@
   height: fit-content;
 }
 
-.privacy > p {
-  height: calc(.6em + .5vw);
-}
-
 .wrapper {
   display: flex;
   flex-direction: column;
 }
+
+.submit {
+  width: 100%;
+  margin-top: .5em;
+  padding: .3em;
+  gap: 0.3em;
+  background-color: #89B0AE;
+  border-radius: 5px;
+  border: none;
+  color: #FAF9F9;
+  text-transform: uppercase;
+  font-size: calc(.4em + .5vw);
+  text-align: center;
+  cursor: pointer;
+  transition: all .3s;
+}
+
+.submit:hover {
+  background-color: #BEE3DB;
+  color: #555B6E;
+}
+
+.confirmation {
+  margin-top: .3em;
+  padding: .5em;
+  text-align: center;
+  color: #555B6E;
+  font-size: calc(.5em + .4vw);
+  font-weight: 600;
+  background-color: #FFD6BA;
+}
+

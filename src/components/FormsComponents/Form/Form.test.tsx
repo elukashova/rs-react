@@ -24,13 +24,14 @@ describe('Form', () => {
     expect(screen.getAllByTestId('date')).toHaveLength(2);
   });
 
-  it('validate name input', () => {
+  it('validate name input', async () => {
     render(<Form reviewCallback={mockFormCallback} />);
-    userEvent.type(screen.getByTestId('text'), 'eee');
+    const user = userEvent.setup();
+    await user.type(screen.getByTestId('text'), 'test');
     fireEvent.click(screen.getByTestId('submit'));
     expect(
       screen.getByText(
-        /The name must contain at least 3 latin letters and start with uppercase letter./i
+        /Please, provide only one name at least 3 letters long and starting with an uppercase letter/i
       )
     ).toBeInTheDocument();
   });

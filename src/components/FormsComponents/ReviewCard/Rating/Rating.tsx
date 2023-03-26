@@ -1,5 +1,4 @@
 import React from 'react';
-import { RATINGS } from '../../Form/Form.consts';
 import styles from './Rating.module.css';
 
 class Rating extends React.Component<{ rating: string }> {
@@ -15,15 +14,16 @@ class Rating extends React.Component<{ rating: string }> {
   }
 
   render(): JSX.Element {
+    const ratingAscOrder: number[] = [1, 2, 3, 4, 5];
     return (
       <div className={styles.rating}>
         Review:
         <div className={styles.stars}>
-          {RATINGS.map((rating) => (
+          {ratingAscOrder.map((ratingNum) => (
             <span
-              key={rating}
+              key={ratingNum}
               data-testid="star"
-              className={styles[this.defineClass(rating)]}
+              className={styles[this.defineClass(ratingNum)]}
             ></span>
           ))}
         </div>

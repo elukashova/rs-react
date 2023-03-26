@@ -6,7 +6,7 @@ type Props = {
   rating: string;
 };
 
-class StarRadio extends Component<Props> {
+class RadioStar extends Component<Props> {
   render() {
     const { refObj, rating } = this.props;
     return (
@@ -26,5 +26,4 @@ class StarRadio extends Component<Props> {
     );
   }
 }
-
-export default StarRadio;
+export default RadioStar;
