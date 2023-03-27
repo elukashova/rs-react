@@ -32,7 +32,6 @@ class Form extends Component<Props, State> {
   private ratingFiveInput: React.RefObject<HTMLInputElement> = React.createRef();
   private avatarInput: React.RefObject<HTMLInputElement> = React.createRef();
   private privacyInput: React.RefObject<HTMLInputElement> = React.createRef();
-  private submitInput: React.RefObject<HTMLInputElement> = React.createRef();
 
   private ratingInputs: React.RefObject<HTMLInputElement>[] = [
     this.ratingOneInput,
@@ -243,13 +242,7 @@ class Form extends Component<Props, State> {
         </div>
 
         <div>
-          <input
-            className={styles.submit}
-            ref={this.submitInput}
-            type="submit"
-            value="submit"
-            data-testid="submit"
-          />
+          <input className={styles.submit} type="submit" value="submit" data-testid="submit" />
           {confirmation && (
             <p className={styles.confirmation}>Your review has been successfully submitted!</p>
           )}
