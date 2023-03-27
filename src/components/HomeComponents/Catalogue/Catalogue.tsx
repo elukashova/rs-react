@@ -4,7 +4,7 @@ import Card from '../Card/Card';
 import data from '../../../assets/data/cardsData';
 import Hut from '../Card/Card.types';
 
-const Catalogue = () => {
+const Catalogue = (): JSX.Element => {
   return (
     <div className={styles.catalogue}>
       {data.map((item: Hut) => (
