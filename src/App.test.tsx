@@ -6,6 +6,6 @@ import App from './App';
 describe('<App />', () => {
   it('renders nav links', () => {
     render(<App />);
-    expect(screen.getAllByTestId('nav-link')).toHaveLength(2);
+    expect(screen.getAllByTestId('nav-link')).toHaveLength(3);
   });
 });

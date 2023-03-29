@@ -1,6 +1,7 @@
 import React from 'react';
 import NotFoundPage from '../pages/404/404';
 import AboutPage from '../pages/About/About';
+import FormsPage from '../pages/Forms/Forms';
 import HomePage from '../pages/Home/Home';
 import Layout from '../pages/Layout';
 import { RoutesConfig } from './router.types';
@@ -23,6 +24,12 @@ const ROUTES: RoutesConfig = {
       key: 'about',
       title: 'about us',
       element: <AboutPage />,
+    },
+    {
+      path: 'forms',
+      key: 'forms',
+      title: 'forms',
+      element: <FormsPage />,
     },
     {
       path: '*',

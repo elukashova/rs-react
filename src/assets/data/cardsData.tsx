@@ -1,4 +1,4 @@
-import CardType from '../../components/Card/Card.types';
+import Hut from '../../components/HomeComponents/Card/Card.types';
 import img1 from '../images/azzoni.jpg';
 import img2 from '../images/albani.jpg';
 import img3 from '../images/tonolini.jpg';
@@ -8,7 +8,7 @@ import img6 from '../images/campione.jpg';
 import img7 from '../images/coca.jpg';
 import img8 from '../images/garibaldi.jpg';
 
-const data: CardType[] = [
+const data: Hut[] = [
   {
     id: 'azzoni',
     image: img1,

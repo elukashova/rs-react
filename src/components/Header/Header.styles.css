@@ -1,5 +1,5 @@
 .menu {
-  width: calc(10% + 3em + 3vw);
+  width: calc(20% + 3em + 3vw);
   display: flex;
   align-items: center;
   justify-content: space-between;

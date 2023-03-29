@@ -1,11 +1,11 @@
 import React from 'react';
 import Card from './Card';
 import { render, screen } from '@testing-library/react';
-import CardType from './Card.types';
-import data from '../../assets/data/cardsData';
+import Hut from './Card.types';
+import data from '../../../assets/data/cardsData';
 
 const randomIdx: number = Math.floor(Math.random() * data.length);
-const dataForTest: CardType = data[randomIdx];
+const dataForTest: Hut = data[randomIdx];
 
 describe('<Card />', () => {
   it('renders card', () => {

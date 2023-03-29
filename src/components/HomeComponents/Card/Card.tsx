@@ -1,10 +1,10 @@
 import React from 'react';
 import ButtonDetails from './Buttons/ButtonDetails/ButtonDetails';
 import ButtonFavorite from './Buttons/ButtonFavorite/ButtonFavorite';
-import CardType from './Card.types';
+import Hut from './Card.types';
 import styles from './Card.module.css';
 
-class Card extends React.Component<CardType> {
+class Card extends React.Component<Hut> {
   render(): JSX.Element {
     return (
       <div className={styles.card} data-testid="catalogue-card">
