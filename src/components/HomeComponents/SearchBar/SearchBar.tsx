@@ -16,13 +16,11 @@ const SearchBar = (): JSX.Element => {
 
   useEffect(() => {
     inputRef.current = searchValue;
-  }, [searchValue]);
 
-  useEffect(() => {
     return () => {
       localStorage.setItem('inputValue', inputRef.current);
     };
-  }, []);
+  }, [searchValue]);
 
   return (
     <div className={styles.wrapper}>

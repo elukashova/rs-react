@@ -1,8 +1,14 @@
 import styles from '../Form.module.css';
-import React, { Component } from 'react';
+import React from 'react';
+import {
+  FieldValues,
+  RegisterOptions,
+  UseFormRegister,
+  UseFormRegisterReturn,
+} from 'react-hook-form';
+import Review from '../../ReviewCard/ReviewCard.types';
 
-type Props = {
-  refObj: React.RefObject<HTMLInputElement>;
+type Props<T extends FieldValues = FieldValues> = {
   type: string;
   className?: string;
   label?: string;
@@ -11,20 +17,22 @@ type Props = {
   id?: string;
   name?: string;
   labelClass?: string;
+  register: <T>(
+    name: T,
+    options?: RegisterOptions<Review, Name> | undefined
+  ) => UseFormRegisterReturn<string>;
 };
 
-class LabelInput extends Component<Props> {
-  render(): JSX.Element {
-    const { label, refObj, className, type, labelClass, ...props } = this.props;
-    return (
-      <>
-        <label className={labelClass ? styles[labelClass] : styles.label}>
-          {label}
-          <input className={styles[type]} ref={refObj} data-testid={type} type={type} {...props} />
-        </label>
-      </>
-    );
-  }
-}
+const LabelInput = (props: Props): JSX.Element => {
+  const { label, className, type, labelClass, ...rest } = props;
+  return (
+    <>
+      <label className={labelClass ? styles[labelClass] : styles.label}>
+        {label}
+        <input className={styles[type]} data-testid={type} type={type} {...rest} />
+      </label>
+    </>
+  );
+};
 
 export default LabelInput;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import ROUTES from './router/router';
+import ROUTES from './utils/router/router';
 import './App.css';
 
 const App = (): JSX.Element => {

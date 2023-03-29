@@ -3,8 +3,8 @@ import { NavLink } from 'react-router-dom';
 import styles from './Header.module.css';
 import './Header.styles.css';
 import { Route, Routes } from 'react-router-dom';
-import ROUTES from '../../router/router';
-import { RouteConfig } from '../../router/router.types';
+import ROUTES from '../../utils/router/router';
+import { RouteConfig } from '../../utils/router/router.types';
 
 const Header = (): JSX.Element => {
   return (

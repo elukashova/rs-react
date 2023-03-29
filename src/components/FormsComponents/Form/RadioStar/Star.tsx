@@ -1,29 +1,27 @@
 import styles from './Star.module.css';
-import React, { Component } from 'react';
+import React from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
 type Props = {
-  refObj: React.RefObject<HTMLInputElement>;
   rating: string;
+  register: UseFormRegisterReturn<'rating'>;
 };
 
-class RadioStar extends Component<Props> {
-  render() {
-    const { refObj, rating } = this.props;
-    return (
-      <>
-        <label className={styles['label-radio']} htmlFor={`radio${rating}`}>
-          {rating}
-        </label>
-        <input
-          className={styles.radio}
-          ref={refObj}
-          type="radio"
-          value={rating}
-          name="review"
-          id={`radio${rating}`}
-        />
-      </>
-    );
-  }
-}
+const RadioStar = (props: Props): JSX.Element => {
+  const { rating, register } = props;
+  return (
+    <>
+      <label className={styles['label-radio']} htmlFor={`radio${rating}`}>
+        {rating}
+      </label>
+      <input
+        className={styles.radio}
+        type="radio"
+        value={rating}
+        id={`radio${rating}`}
+        {...register}
+      />
+    </>
+  );
+};
 export default RadioStar;
