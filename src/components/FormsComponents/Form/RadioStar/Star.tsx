@@ -7,8 +7,7 @@ type Props = {
   register: UseFormRegisterReturn<'rating'>;
 };
 
-const RadioStar = (props: Props): JSX.Element => {
-  const { rating, register } = props;
+const RadioStar = ({ rating, register }: Props): JSX.Element => {
   return (
     <>
       <label className={styles['label-radio']} htmlFor={`radio${rating}`}>

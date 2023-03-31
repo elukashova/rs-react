@@ -1,14 +1,8 @@
 import styles from '../Form.module.css';
 import React from 'react';
-import {
-  FieldValues,
-  RegisterOptions,
-  UseFormRegister,
-  UseFormRegisterReturn,
-} from 'react-hook-form';
-import Review from '../../ReviewCard/ReviewCard.types';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
-type Props<T extends FieldValues = FieldValues> = {
+type Props = {
   type: string;
   className?: string;
   label?: string;
@@ -17,19 +11,17 @@ type Props<T extends FieldValues = FieldValues> = {
   id?: string;
   name?: string;
   labelClass?: string;
-  register: <T>(
-    name: T,
-    options?: RegisterOptions<Review, Name> | undefined
-  ) => UseFormRegisterReturn<string>;
+  register: UseFormRegisterReturn<'name' | 'arrival' | 'departure' | 'image'>;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
 const LabelInput = (props: Props): JSX.Element => {
-  const { label, className, type, labelClass, ...rest } = props;
+  const { label, className, type, labelClass, register, ...rest } = props;
   return (
     <>
       <label className={labelClass ? styles[labelClass] : styles.label}>
         {label}
-        <input className={styles[type]} data-testid={type} type={type} {...rest} />
+        <input className={styles[type]} data-testid={type} type={type} {...register} {...rest} />
       </label>
     </>
   );

@@ -1,37 +1,35 @@
 import styles from './Form.module.css';
-import React, { useState } from 'react';
+import React from 'react';
 import Review from '../ReviewCard/ReviewCard.types';
-import ValidationError from './Error/Error';
+import ValidationError from './Validation/Error/Error';
 import data from '../../../assets/data/cardsData';
 import LabelInput from './Input/Input';
 import RadioStar from './RadioStar/Star';
 import { useForm } from 'react-hook-form';
-import { Errors } from './Error/Error.consts';
+import { Errors } from './Validation/Error/Error.consts';
+import useValidation from './Validation/Validation';
 
 type Props = {
   reviewCallback: (review: Review) => void;
 };
 
-const Form = (props: Props) => {
-  const ratingsDescOrder: number[] = [5, 4, 3, 2, 1];
-  const [arrival, setArrival] = useState<number>(new Date().setHours(0, 0, 0, 0));
-  const [avatar, setAvatar] = useState({
-    format: '',
-    value: '',
-  });
+const Form = (props: Props): JSX.Element => {
   const {
     register,
     handleSubmit,
     reset,
-    formState: { errors, submitCount, isValid, isSubmitSuccessful, isDirty, isSubmitted },
+    formState: { errors, isSubmitSuccessful },
   } = useForm<Review>({
     criteriaMode: 'all',
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
   });
+  const { onFileUpload, onArrivalChange, dateRules, avatarRules } = useValidation();
+  const ratingsDescOrder: number[] = [5, 4, 3, 2, 1];
 
   const onSubmit = (review: Review) => {
-    setTimeout(() => resetForm(), 2000);
+    setTimeout(() => reset(), 1500);
+
     const url: string =
       typeof review.image === 'string' ? review.image : URL.createObjectURL(review.image[0]);
     setTimeout(
@@ -40,46 +38,26 @@ const Form = (props: Props) => {
           ...review,
           image: url,
         }),
-      1000
+      1500
     );
-  };
-
-  const resetForm = () => {
-    setAvatar({ format: '', value: '' });
-    setArrival(new Date().setHours(0, 0, 0, 0));
-    reset();
-  };
-
-  const onFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setAvatar({ format: e.target.files[0].type, value: e.target.value });
-    }
-  };
-
-  const onArrivalChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setArrival(new Date(e.target.value).setHours(0, 0, 0, 0));
   };
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.wrapper}>
-        <label className={styles.label}>
-          name
-          <input
-            className={styles.text}
-            data-testid="text"
-            type="text"
-            {...register('name', {
-              required: true,
-              minLength: 3,
-              pattern: /^([A-Z]+[a-zA-Z]{2,})$/,
-            })}
-          />
-        </label>
-        {errors.name?.types && errors.name.types.required && <ValidationError />}
-        {errors.name?.types && (errors.name.types.minLength || errors.name.types.pattern) && (
-          <ValidationError message={Errors.name} />
-        )}
+        <LabelInput
+          label="name"
+          type="text"
+          id="name"
+          register={register('name', {
+            required: Errors.required,
+            pattern: {
+              value: /^([A-Z]+[a-zA-Z]{2,})$/,
+              message: Errors.name,
+            },
+          })}
+        />
+        {errors.name?.types && <ValidationError message={errors.name.message} />}
       </div>
 
       <div className={styles.wrapper}>
@@ -87,62 +65,42 @@ const Form = (props: Props) => {
         <select
           className={styles.select}
           {...register('hut', {
-            required: true,
+            required: Errors.required,
           })}
         >
-          <option value="">--Choose a hut--</option>
+          <option hidden value="">
+            --Choose a hut--
+          </option>
           {data.map((item) => (
             <option key={item.name}>{item.name}</option>
           ))}
         </select>
-        {errors.hut && <ValidationError />}
+        {errors.hut && <ValidationError message={errors.hut.message} />}
       </div>
 
       <div className={styles.stay}>
         <div className={styles.wrapper}>
-          <label className={styles.label}>
-            from
-            <input
-              className={styles.date}
-              data-testid="date"
-              type="date"
-              {...register('arrival', {
-                required: true,
-                validate: {
-                  realDate: (date) =>
-                    new Date(date).setHours(0, 0, 0, 0) <= new Date().setHours(0, 0, 0, 0) || '',
-                },
-              })}
-              onChange={onArrivalChange}
-            />
-          </label>
-          {errors.arrival?.types &&
-            ((errors.arrival.types.required && <ValidationError />) ||
-              (errors.arrival.types.realDate && <ValidationError message={Errors.date} />))}
+          <LabelInput
+            label="from:"
+            type="date"
+            register={register('arrival', {
+              required: Errors.required,
+              validate: dateRules.realDate,
+            })}
+            onChange={onArrivalChange}
+          />
+          {errors.arrival?.types && <ValidationError message={errors.arrival.message} />}
         </div>
         <div className={styles.wrapper}>
-          <label className={styles.label}>
-            to
-            <input
-              className={styles.date}
-              data-testid="date"
-              type="date"
-              {...register('departure', {
-                required: true,
-                validate: {
-                  realDate: (date) =>
-                    new Date(date).setHours(0, 0, 0, 0) <= new Date().setHours(0, 0, 0, 0) || '',
-                  earlyDate: (date) => arrival <= new Date(date).setHours(0, 0, 0, 0) || '',
-                },
-              })}
-            />
-          </label>
-          {(errors.departure?.types && errors.departure.types.required && <ValidationError />) ||
-            (errors.departure?.types &&
-              ((errors.departure.types.realDate && <ValidationError message={Errors.date} />) ||
-                (errors.departure.types.earlyDate && (
-                  <ValidationError message={Errors.departure} />
-                ))))}
+          <LabelInput
+            label="to:"
+            type="date"
+            register={register('departure', {
+              required: Errors.required,
+              validate: dateRules,
+            })}
+          />
+          {errors.departure?.types && <ValidationError message={errors.departure.message} />}
         </div>
       </div>
 
@@ -154,36 +112,26 @@ const Form = (props: Props) => {
               key={num}
               rating={`${num}`}
               register={register('rating', {
-                required: true,
+                required: Errors.required,
               })}
             />
           ))}
         </div>
-        {errors.rating && <ValidationError />}
+        {errors.rating && <ValidationError message={errors.rating.message} />}
       </fieldset>
 
       <div className={styles.avatar}>
-        <label className={styles.label}>
-          add your avatar
-          <input
-            className={styles.file}
-            data-testid="file"
-            type="file"
-            accept="image/*"
-            value={avatar.value}
-            {...register('image', {
-              required: true,
-              validate: {
-                acceptedFormats: () =>
-                  ['image/jpeg', 'image/png', 'image/gif'].includes(avatar.format) || '',
-              },
-            })}
-            onChange={onFileUpload}
-          />
-        </label>
-        {errors.image?.types &&
-          ((errors.image.types.required && <ValidationError />) ||
-            (errors.image.types.acceptedFormats && <ValidationError message={Errors.avatar} />))}
+        <LabelInput
+          label="add your avatar"
+          type="file"
+          accept="image/*"
+          register={register('image', {
+            required: Errors.required,
+            validate: avatarRules,
+          })}
+          onChange={onFileUpload}
+        />
+        {errors.image?.types && <ValidationError message={errors.image.message} />}
       </div>
 
       <div className={styles.wrapper}>
@@ -193,12 +141,12 @@ const Form = (props: Props) => {
             type="checkbox"
             data-testid="privacy"
             {...register('privacy', {
-              required: true,
+              required: Errors.required,
             })}
           />
           <p>I consent to the processing of my personal data</p>
         </div>
-        {errors.privacy && <ValidationError />}
+        {errors.privacy && <ValidationError message={errors.privacy.message} />}
       </div>
 
       <div>
