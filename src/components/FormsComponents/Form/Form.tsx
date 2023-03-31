@@ -48,7 +48,6 @@ const Form = (props: Props): JSX.Element => {
         <LabelInput
           label="name"
           type="text"
-          id="name"
           register={register('name', {
             required: Errors.required,
             pattern: {
@@ -72,7 +71,9 @@ const Form = (props: Props): JSX.Element => {
             --Choose a hut--
           </option>
           {data.map((item) => (
-            <option key={item.name}>{item.name}</option>
+            <option data-testid={item.id} key={item.name}>
+              {item.name}
+            </option>
           ))}
         </select>
         {errors.hut && <ValidationError message={errors.hut.message} />}

@@ -8,7 +8,7 @@ type Props = {
 const ValidationError = ({ message }: Props): JSX.Element => {
   return (
     <>
-      <div className={styles['error-wrapper']}>
+      <div data-testid="error" className={styles['error-wrapper']}>
         <p className={styles.exclamation}>!!!</p>
         <p className={styles.error}>{message}</p>
       </div>

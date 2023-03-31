@@ -9,18 +9,19 @@ const SearchBar = (): JSX.Element => {
 
   const onValueChange: ChangeEventHandler = (event) => {
     if (event.target instanceof HTMLInputElement) {
-      const input: HTMLInputElement = event.target;
-      setSearchValue(input.value);
+      setSearchValue(event.target.value);
     }
   };
 
   useEffect(() => {
     inputRef.current = searchValue;
+  }, [searchValue]);
 
+  useEffect(() => {
     return () => {
       localStorage.setItem('inputValue', inputRef.current);
     };
-  }, [searchValue]);
+  }, []);
 
   return (
     <div className={styles.wrapper}>

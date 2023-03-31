@@ -7,7 +7,7 @@ import { formatDate } from '../../../utils/utils';
 const ReviewCard = (review: Review): JSX.Element => {
   const { image, name, hut, arrival, departure, rating } = review;
   return (
-    <div className={styles.card}>
+    <div data-testid="review" className={styles.card}>
       <div className={styles.user}>
         <img className={styles.image} alt="user avatar" src={image} />
         <div className={styles.info}>
