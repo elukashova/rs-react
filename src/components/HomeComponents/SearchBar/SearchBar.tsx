@@ -1,45 +1,41 @@
-import React, { ChangeEvent, ChangeEventHandler, Component } from 'react';
+import React, { ChangeEventHandler, useEffect, useRef, useState } from 'react';
 import ButtonSearch from './Button/ButtonSearch';
 import styles from './SearchBar.module.css';
 
-class SearchBar extends Component<Record<string, never>, { value: string }> {
-  constructor(props: Record<string, never>) {
-    super(props);
+const SearchBar = (): JSX.Element => {
+  const savedValue: string = localStorage.getItem('inputValue') || '';
+  const [searchValue, setSearchValue] = useState<string>(savedValue);
+  const inputRef: React.MutableRefObject<string> = useRef(searchValue);
 
-    this.state = {
-      value: localStorage.getItem('inputValue') || '',
-    };
-  }
-
-  saveInputValue: ChangeEventHandler = (event: ChangeEvent<Element>) => {
+  const onValueChange: ChangeEventHandler = (event) => {
     if (event.target instanceof HTMLInputElement) {
-      const input: HTMLInputElement = event.target;
-
-      this.setState(() => ({
-        value: input.value,
-      }));
+      setSearchValue(event.target.value);
     }
   };
 
-  componentWillUnmount(): void {
-    localStorage.setItem('inputValue', this.state.value);
-  }
+  useEffect(() => {
+    inputRef.current = searchValue;
+  }, [searchValue]);
 
-  render(): JSX.Element {
-    return (
-      <div className={styles.wrapper}>
-        <input
-          onChange={this.saveInputValue}
-          className={styles.input}
-          type="text"
-          value={this.state.value}
-          placeholder="Search..."
-          autoComplete="off"
-        />
-        <ButtonSearch />
-      </div>
-    );
-  }
-}
+  useEffect(() => {
+    return () => {
+      localStorage.setItem('inputValue', inputRef.current);
+    };
+  }, []);
+
+  return (
+    <div className={styles.wrapper}>
+      <input
+        onChange={onValueChange}
+        className={styles.input}
+        type="text"
+        value={searchValue}
+        placeholder="Search..."
+        autoComplete="off"
+      />
+      <ButtonSearch />
+    </div>
+  );
+};
 
 export default SearchBar;

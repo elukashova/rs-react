@@ -1,8 +1,8 @@
 import styles from '../Form.module.css';
-import React, { Component } from 'react';
+import React from 'react';
+import { UseFormRegisterReturn } from 'react-hook-form';
 
 type Props = {
-  refObj: React.RefObject<HTMLInputElement>;
   type: string;
   className?: string;
   label?: string;
@@ -11,20 +11,20 @@ type Props = {
   id?: string;
   name?: string;
   labelClass?: string;
+  register: UseFormRegisterReturn<'name' | 'arrival' | 'departure' | 'image'>;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-class LabelInput extends Component<Props> {
-  render(): JSX.Element {
-    const { label, refObj, className, type, labelClass, ...props } = this.props;
-    return (
-      <>
-        <label className={labelClass ? styles[labelClass] : styles.label}>
-          {label}
-          <input className={styles[type]} ref={refObj} data-testid={type} type={type} {...props} />
-        </label>
-      </>
-    );
-  }
-}
+const LabelInput = (props: Props): JSX.Element => {
+  const { label, className, type, labelClass, register, ...rest } = props;
+  return (
+    <>
+      <label className={labelClass ? styles[labelClass] : styles.label}>
+        {label}
+        <input className={styles[type]} data-testid={type} type={type} {...register} {...rest} />
+      </label>
+    </>
+  );
+};
 
 export default LabelInput;

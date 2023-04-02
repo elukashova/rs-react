@@ -14,7 +14,7 @@ const mockData: Review = {
   privacy: true,
 };
 
-describe('Review', () => {
+describe('<Review />', () => {
   it('renders review', () => {
     render(<ReviewCard {...mockData} />);
 

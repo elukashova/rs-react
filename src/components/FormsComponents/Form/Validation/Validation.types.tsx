@@ -1,24 +1,17 @@
-export type Validation = {
-  name: boolean;
-  longName: boolean;
-  hut: boolean;
-  arrival: boolean;
-  realArrival: boolean;
-  departure: boolean;
-  realDeparture: boolean;
-  earlyDeparture: boolean;
-  rating: boolean;
-  img: boolean;
-  format: boolean;
-  privacy: boolean;
+export type ValidationHook = {
+  onFileUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onArrivalChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  dateRules: DateRules;
+  avatarRules: FileRules;
 };
 
-export type InputsToValidate = {
-  nameInput: React.RefObject<HTMLInputElement>;
-  hutInput: React.RefObject<HTMLSelectElement>;
-  arrivalInput: React.RefObject<HTMLInputElement>;
-  departureInput: React.RefObject<HTMLInputElement>;
-  ratingInputs: React.RefObject<HTMLInputElement>[];
-  imageInput: React.RefObject<HTMLInputElement>;
-  privacyInput: React.RefObject<HTMLInputElement>;
+export type FileRules = {
+  acceptedFormats: () => boolean | string;
 };
+
+export type DateRules = {
+  realDate: DateValidation;
+  earlyDate: DateValidation;
+};
+
+type DateValidation = (date: string) => boolean | string;

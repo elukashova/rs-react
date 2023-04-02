@@ -1,34 +1,23 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import Form from '../../components/FormsComponents/Form/Form';
 import Review from '../../components/FormsComponents/ReviewCard/ReviewCard.types';
 import ReviewsList from '../../components/FormsComponents/ReviewsList/ReviewsList';
 import styles from '../Layout.module.css';
 
-class FormsPage extends Component<{ reviews?: Review[] }> {
-  state = {
-    reviews: [],
+const FormsPage = (): JSX.Element => {
+  const [reviews, setReviews] = useState<Review[]>([]);
+
+  const addReview = (review: Review): void => {
+    setReviews([...reviews, { ...review, id: reviews.length }]);
   };
 
-  addReview = (review: Review): void => {
-    const updatedReviews: Review[] = [
-      ...this.state.reviews,
-      { ...review, id: this.state.reviews.length },
-    ];
-
-    this.setState({
-      reviews: [...updatedReviews],
-    });
-  };
-
-  render() {
-    return (
-      <section className={styles.section}>
-        <h2 className={styles.title}>Leave your review</h2>
-        <Form reviewCallback={this.addReview} />
-        <ReviewsList reviews={this.state.reviews} />
-      </section>
-    );
-  }
-}
+  return (
+    <section className={styles.section}>
+      <h2 className={styles.title}>Leave your review</h2>
+      <Form reviewCallback={addReview} />
+      <ReviewsList reviews={reviews} />
+    </section>
+  );
+};
 
 export default FormsPage;
