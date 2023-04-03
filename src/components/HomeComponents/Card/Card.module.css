@@ -4,6 +4,7 @@
   gap: 0.5em;
   border-radius: 10px;
   box-shadow: #BEE3DB 0px 1px 3px 0px, #89B0AE 0px 1px 2px 0px;
+  cursor: pointer;
 }
 
 .image {
@@ -51,9 +52,24 @@
   font-size: calc(.4em + .5vw);
 }
 
-.buttons {
-  margin-top: 0.2em;
+.wrapper {
+  width: 100%;
+  padding: .2em .3em;
+  align-self: flex-end;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
+  gap: 0.5em;
+  color: #FAF9F9;
+  text-transform: uppercase;
+  font-style: italic;
+  color: #89B0AE;
+  font-size: calc(.4em + .4vw);
+  cursor: pointer;
+}
+
+.icon {
+  width: calc(.4em + .4vw);
+  height: calc(.4em + .4vw);
+  fill: #555B6E;
 }
