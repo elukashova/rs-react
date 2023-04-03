@@ -8,7 +8,7 @@
 
 .input {
   width: 100%;
-  padding: .8rem 1rem;
+  padding: .8rem 1.5rem;
   margin-right: -2rem;
   border: none;
   border-radius: 20px;
@@ -34,4 +34,18 @@
 
 .input:focus + .btn {
   background-color: #F0EEEE;
+}
+
+.btn {
+  margin-top: .1em;
+  margin-right: 1.5em;
+  border: none;
+  background-color: #F4F2F2;
+  cursor: default;
+}
+
+.icon {
+  height: 1.4em;
+  width: 1.4em;
+  fill: #89B0AE;
 }
