@@ -4,15 +4,15 @@ import styles from './Card.module.css';
 
 type Props = {
   hut: Hut;
-  modalCallback: (hut: Hut) => void;
+  modalCallback: (hutId: string) => void;
 };
 
 const Card = (props: Props): JSX.Element => {
   const { hut, modalCallback } = props;
-  const { alt, image, name, altitude } = hut;
+  const { alt, image, name, altitude, id } = hut;
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    modalCallback(hut);
+    modalCallback(id);
   };
 
   return (

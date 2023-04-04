@@ -9,11 +9,11 @@ type Props = {
 };
 
 const Catalogue = ({ currentHuts }: Props): JSX.Element => {
-  const [huts, setHuts] = useState<Hut[]>([]);
-  const [selectedHut, setSelectedHut] = useState<Hut | null>(null);
+  const [huts, setHuts] = useState<Hut[]>(currentHuts || []);
+  const [selectedHut, setSelectedHut] = useState<string | null>(null);
 
-  const openModalWindow = (hut: Hut): void => {
-    setSelectedHut(hut);
+  const openModalWindow = (hutId: string): void => {
+    setSelectedHut(hutId);
   };
 
   const unselectHut = (): void => {
@@ -28,7 +28,7 @@ const Catalogue = ({ currentHuts }: Props): JSX.Element => {
     <div className={styles.catalogue}>
       {huts &&
         huts.map((item: Hut) => <Card key={item.id} modalCallback={openModalWindow} hut={item} />)}
-      {selectedHut && <Modal hut={selectedHut} unselectHut={unselectHut} />}
+      {selectedHut && <Modal hutId={selectedHut} unselectHut={unselectHut} />}
     </div>
   );
 };
