@@ -15,6 +15,8 @@ const mockGetDataFromLocalStorage = vi.fn((key: string): string | null => {
   return result;
 });
 
+const mockCallback = vi.fn();
+
 describe('<SearchBar />', () => {
   beforeEach(() => {
     Object.defineProperty(window, 'localStorage', {
@@ -26,13 +28,14 @@ describe('<SearchBar />', () => {
     });
   });
 
-  it('renders search input', () => {
-    render(<SearchBar />);
+  it('handles search input value', () => {
+    render(<SearchBar filterHuts={mockCallback} />);
     const searchInput: HTMLElement | null = screen.getByPlaceholderText(/Search.../i);
 
     fireEvent.change(searchInput, { target: { value: 'random' } });
+    fireEvent.keyDown(searchInput, { key: 'Enter', code: 'Enter', charCode: 13 });
     cleanup();
-
+    expect(mockCallback).toHaveBeenCalledTimes(1);
     expect(window.localStorage.setItem).toHaveBeenCalledTimes(1);
   });
 });
