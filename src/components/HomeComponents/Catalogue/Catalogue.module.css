@@ -1,6 +1,20 @@
+.wrapper {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .catalogue {
   height: 100%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 2em;
+}
+
+.error {
+  font-weight: 500;
+  font-style: italic;
+  font-size: calc(.7em + .6vw);
+  color: #555B6E;
 }

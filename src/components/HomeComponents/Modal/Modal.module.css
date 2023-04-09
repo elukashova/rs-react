@@ -11,19 +11,24 @@
   background: rgba(0, 0, 0, 0.5);
 }
 
+body:has(.modal) {
+  overflow: hidden;
+}
+
 .modal {
   position: absolute;
-  height: 70%;
-  width: 55%;
+  height: calc(23em + 23vh);
+  width: calc(30em + 30vw);
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 1.5em;
   padding: 2em;
+  padding-bottom: 3.5em;
   border-radius: 5px;
   background: #FAF9F9;
   opacity: 100%;
   z-index: 2;
-  gap: 1em;
   transition: all 1s ease-in-out;
 }
 
@@ -57,7 +62,6 @@
 }
 
 .wrapper {
-  width: 80%;
   height: fit-content;
   display: flex;
   gap: 2em;
@@ -66,8 +70,7 @@
 }
 
 .image {
-  width: 90%;
-  height: 90%;
+  width: 50%;
 }
 
 .details {

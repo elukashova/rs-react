@@ -35,7 +35,7 @@ const Catalogue = ({ query }: Props): JSX.Element => {
   }, [query]);
 
   return (
-    <>
+    <div className={styles.wrapper}>
       {loading && <ProgressIndicator />}
       {!loading && (
         <div className={styles.catalogue}>
@@ -47,7 +47,7 @@ const Catalogue = ({ query }: Props): JSX.Element => {
           {selectedHut && <Modal hutId={selectedHut} unselectHut={unselectHut} />}
         </div>
       )}
-    </>
+    </div>
   );
 };
 
