@@ -30,8 +30,13 @@ const Modal = ({ hutId, unselectHut }: Props): JSX.Element => {
     <>
       {hut && (
         <div className={styles.background} onClick={handleClick}>
-          <div className={styles.modal}>
-            <button type="button" className={styles.btn} onClick={handleClick}></button>
+          <div className={styles.modal} data-testid="modal">
+            <button
+              type="button"
+              className={styles.btn}
+              data-testid="close-btn"
+              onClick={handleClick}
+            ></button>
             <div className={styles.wrapper}>
               <img className={styles.image} alt={hut.alt} src={hut.image} />
               <div className={styles.details}>

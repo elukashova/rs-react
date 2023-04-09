@@ -1,26 +1,13 @@
 import React, { ChangeEventHandler, KeyboardEventHandler, SyntheticEvent, useState } from 'react';
-import { API_PATH, SEARCH_QUERY } from '../../../utils/consts';
-import Hut from '../Card/Card.types';
 import styles from './SearchBar.module.css';
 
 type Props = {
-  filterHuts: (huts: Hut[]) => void;
+  query?: string;
+  filterHuts: (newQuery: string) => void;
 };
 
-const SearchBar = ({ filterHuts }: Props): JSX.Element => {
-  const sendQueryRequest = (query: string): void => {
-    fetch(`${API_PATH}${SEARCH_QUERY}${query}`)
-      .then((response: Response) => response.json())
-      .then((result: Hut[]) => filterHuts(result));
-  };
-
-  const [searchValue, setSearchValue] = useState<string>(() => {
-    const savedValue: string | null = localStorage.getItem('inputValue');
-    if (savedValue) {
-      sendQueryRequest(savedValue);
-    }
-    return savedValue || '';
-  });
+const SearchBar = ({ query, filterHuts }: Props): JSX.Element => {
+  const [searchValue, setSearchValue] = useState<string>(query || '');
 
   const onValueChange: ChangeEventHandler = (event) => {
     if (event.target instanceof HTMLInputElement) {
@@ -33,7 +20,7 @@ const SearchBar = ({ filterHuts }: Props): JSX.Element => {
   ): void => {
     if (event.target instanceof HTMLInputElement) {
       if (event.nativeEvent.code === 'Enter') {
-        sendQueryRequest(event.target.value);
+        filterHuts(event.target.value);
         localStorage.setItem('inputValue', event.target.value);
       }
     }
