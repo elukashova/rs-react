@@ -5,6 +5,7 @@ import urlForTest from '../../../assets/images/coca.jpg';
 import Review from '../ReviewCard/ReviewCard.types';
 
 const mockData: Review = {
+  id: 0,
   name: 'Name',
   hut: 'Garibaldi hut',
   arrival: '2023-03-01',
