@@ -7,12 +7,12 @@ const hutsSlice = createSlice({
     huts: data,
   },
   reducers: {
-    setComponents(state, action) {
+    setHutCards(state, action) {
       state.huts = action.payload;
     },
   },
 });
 
-export const { setComponents } = hutsSlice.actions;
+export const { setHutCards } = hutsSlice.actions;
 
 export default hutsSlice.reducer;

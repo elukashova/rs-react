@@ -1,13 +1,21 @@
 import React, { ChangeEventHandler, KeyboardEventHandler, SyntheticEvent, useState } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { setSearchQuery } from '../../../store/slices/searchSlice';
+import { RootState } from '../../../store/store';
 import styles from './SearchBar.module.css';
+import data from '../../../assets/data/cardsData';
+import { setHutCards } from '../../../store/slices/hutsSlice';
+import Hut from '../Card/Card.types';
 
 type Props = {
   query?: string;
-  filterHuts: (newQuery: string) => void;
+  filterHuts?: (newQuery: string) => void;
 };
 
 const SearchBar = ({ query, filterHuts }: Props): JSX.Element => {
-  const [searchValue, setSearchValue] = useState<string>(query || '');
+  const dispatch = useAppDispatch();
+  const currentQuery = useAppSelector((state: RootState) => state.search.query);
+  const [searchValue, setSearchValue] = useState<string>(currentQuery);
 
   const onValueChange: ChangeEventHandler = (event) => {
     if (event.target instanceof HTMLInputElement) {
@@ -20,8 +28,13 @@ const SearchBar = ({ query, filterHuts }: Props): JSX.Element => {
   ): void => {
     if (event.target instanceof HTMLInputElement) {
       if (event.nativeEvent.code === 'Enter') {
-        filterHuts(event.target.value);
-        localStorage.setItem('inputValue', event.target.value);
+        const { value } = event.target;
+        dispatch(setSearchQuery(value));
+        dispatch(
+          setHutCards([
+            ...data.filter((item: Hut) => item.name.toLowerCase().includes(value.toLowerCase())),
+          ])
+        );
       }
     }
   };

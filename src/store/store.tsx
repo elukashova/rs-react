@@ -1,23 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import hutsReducer from './slices/hutsSlice';
-import Hut from '../components/HomeComponents/Card/Card.types';
-import Review from '../components/FormsComponents/ReviewCard/ReviewCard.types';
+import hutsSlice from './slices/hutsSlice';
 import formSlice from './slices/formSlice';
-
-export interface State {
-  cards: {
-    huts: Hut[];
-  };
-  form: {
-    reviews: Review[];
-    form: Review;
-  };
-}
+import searchSlice from './slices/searchSlice';
 
 const store = configureStore({
   reducer: {
-    cards: hutsReducer,
+    cards: hutsSlice,
     form: formSlice,
+    search: searchSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
