@@ -16,7 +16,7 @@ const initialState: FormState = {
   },
 };
 
-const formSlice = createSlice({
+const formReducer = createSlice({
   name: 'components',
   initialState,
   reducers: {
@@ -29,6 +29,6 @@ const formSlice = createSlice({
   },
 });
 
-export const { setFormValues, setReviewData } = formSlice.actions;
+export const { setFormValues, setReviewData } = formReducer.actions;
 
-export default formSlice.reducer;
+export default formReducer.reducer;

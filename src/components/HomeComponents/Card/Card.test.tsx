@@ -1,27 +1,32 @@
 import React from 'react';
 import Card from './Card';
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import Hut from './Card.types';
 import data from '../../../assets/data/cardsData';
-import { vi } from 'vitest';
+import { create, renderWithProviders } from '../../../test/test-utils';
 
 const randomIdx: number = Math.floor(Math.random() * data.length);
 const dataForTest: Hut = data[randomIdx];
-const mockCallback = vi.fn();
 
 describe('<Card />', () => {
   it('renders card', () => {
-    render(<Card hut={dataForTest} modalCallback={mockCallback} />);
+    renderWithProviders(<Card hut={dataForTest} />);
 
     expect(screen.getByRole('img')).toBeInTheDocument();
     expect(screen.getAllByText(/hut/i)).not.toHaveLength(0);
     expect(screen.getAllByText(/click for details/i)).toHaveLength(1);
   });
 
-  it('opens modal window', async () => {
-    render(<Card hut={dataForTest} modalCallback={mockCallback} />);
+  it('provides card id to open modal window', async () => {
+    renderWithProviders(<Card hut={dataForTest} />);
     const card = await screen.findByTestId('catalogue-card');
     fireEvent.click(card);
-    expect(mockCallback).toHaveBeenCalledTimes(1);
+    const { store, invoke } = create();
+    invoke((dispatch, getState) => {
+      dispatch(dataForTest.id);
+      getState();
+    });
+    expect(store.dispatch).toHaveBeenCalledWith(dataForTest.id);
+    expect(store.getState).toHaveBeenCalled();
   });
 });

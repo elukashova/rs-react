@@ -1,11 +1,11 @@
-import { configureStore } from '@reduxjs/toolkit';
-import formSlice from './slices/formSlice';
-import apiSlice from './slices/apiSlice';
+import { combineReducers, configureStore, PreloadedState } from '@reduxjs/toolkit';
+import formReducer from './slices/formSlice';
+import apiReducer from './slices/apiSlice';
 
 const store = configureStore({
   reducer: {
-    form: formSlice,
-    api: apiSlice,
+    form: formReducer,
+    api: apiReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -16,7 +16,20 @@ const store = configureStore({
     }),
 });
 
+const rootReducer = combineReducers({
+  form: formReducer,
+  api: apiReducer,
+});
+
+export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState,
+  });
+};
+
 export default store;
 
 export type RootState = ReturnType<typeof store.getState>;
+export type AppStore = ReturnType<typeof setupStore>;
 export type AppDispatch = typeof store.dispatch;

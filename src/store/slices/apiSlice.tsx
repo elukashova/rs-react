@@ -15,12 +15,15 @@ export const fetchApi = createAsyncThunk<Hut[], string>('api/fetchApi', async (u
   return await response.json().then((result: Hut[]) => result);
 });
 
-const apiSlice = createSlice({
+const apiReducer = createSlice({
   name: 'api',
   initialState,
   reducers: {
     setSelected(state, action: PayloadAction<boolean>) {
       state.isSelected = action.payload;
+    },
+    setSelectedHut(state, action: PayloadAction<Hut>) {
+      state.selectedHut = action.payload;
     },
     setSearchQuery(state, action: PayloadAction<string>) {
       state.query = action.payload;
@@ -46,6 +49,6 @@ const apiSlice = createSlice({
   },
 });
 
-export const { setSelected, setLoading, setSearchQuery } = apiSlice.actions;
+export const { setSelected, setLoading, setSearchQuery, setSelectedHut } = apiReducer.actions;
 
-export default apiSlice.reducer;
+export default apiReducer.reducer;

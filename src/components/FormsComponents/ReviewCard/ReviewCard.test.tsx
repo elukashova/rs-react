@@ -1,8 +1,9 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import React from 'react';
 import ReviewCard from './ReviewCard';
 import Review from './ReviewCard.types';
 import urlForTest from '../../../assets/images/coca.jpg';
+import { renderWithProviders } from '../../../test/test-utils';
 
 const mockData: Review = {
   name: 'Name',
@@ -16,7 +17,7 @@ const mockData: Review = {
 
 describe('<Review />', () => {
   it('renders review', () => {
-    render(<ReviewCard {...mockData} />);
+    renderWithProviders(<ReviewCard {...mockData} />);
 
     expect(screen.getAllByTestId('star')).toHaveLength(5);
     expect(screen.getAllByRole('img')).toHaveLength(1);

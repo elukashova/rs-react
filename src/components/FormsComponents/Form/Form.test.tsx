@@ -1,9 +1,10 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import Review from '../ReviewCard/ReviewCard.types';
 import Form from './Form';
 import React from 'react';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
+import { renderWithProviders } from '../../../test/test-utils';
 
 const mockFormCallback = vi.fn((review: Review): void => {
   if (review) {
@@ -13,27 +14,26 @@ const mockFormCallback = vi.fn((review: Review): void => {
 
 describe('<Form />', () => {
   it('renders form', () => {
-    render(<Form reviewCallback={mockFormCallback} />);
-
+    renderWithProviders(<Form />);
     expect(screen.getAllByRole('radio')).toHaveLength(5);
     expect(screen.getAllByRole('option')).toHaveLength(8);
     expect(screen.getByText(/Name/i)).toBeInTheDocument();
   });
 
   it('renders date inputs', () => {
-    render(<Form reviewCallback={mockFormCallback} />);
+    renderWithProviders(<Form />);
     expect(screen.getAllByTestId('date')).toHaveLength(2);
   });
 
   it('validates inputs before submitting', async () => {
-    render(<Form reviewCallback={mockFormCallback} />);
+    renderWithProviders(<Form />);
     const user = userEvent.setup();
     await user.click(screen.getByTestId('submit'));
     expect(mockFormCallback).not.toBeCalled();
   });
 
   it('shows validation errors', async () => {
-    render(<Form reviewCallback={mockFormCallback} />);
+    renderWithProviders(<Form />);
     const user = userEvent.setup();
     await user.type(screen.getByTestId('text'), 'test');
     await user.click(screen.getByTestId('submit'));
@@ -45,7 +45,7 @@ describe('<Form />', () => {
   });
 
   it('checks radio buttons', async () => {
-    render(<Form reviewCallback={mockFormCallback} />);
+    renderWithProviders(<Form />);
     const radioBtns = screen.getAllByRole('radio') as HTMLInputElement[];
     radioBtns.forEach((btn) => expect(btn).not.toBeChecked());
     fireEvent.click(screen.getByTestId('radio2'));
@@ -55,7 +55,7 @@ describe('<Form />', () => {
 
   it('uploads file', () => {
     const file = new File(['hello'], 'helloWorld.png', { type: 'image/png' });
-    render(<Form reviewCallback={mockFormCallback} />);
+    renderWithProviders(<Form />);
     const input = screen.getByTestId('file') as HTMLInputElement;
     fireEvent.change(input, {
       target: { files: [file] },
@@ -66,7 +66,7 @@ describe('<Form />', () => {
   });
 
   it('checks privacy consent', () => {
-    render(<Form reviewCallback={mockFormCallback} />);
+    renderWithProviders(<Form />);
     expect(screen.getByTestId('privacy')).not.toBeChecked();
     fireEvent.click(screen.getByTestId('privacy'));
     expect(screen.getByTestId('privacy')).toBeChecked();
