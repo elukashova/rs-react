@@ -1,25 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Catalogue.module.css';
 import Card from '../Card/Card';
 import Hut from '../Card/Card.types';
 import { RootState } from '../../../store/store';
-import { useAppSelector } from '../../../store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { fetchApi } from '../../../store/slices/apiSlice';
+import { API_PATH, SEARCH_QUERY } from '../../../utils/consts';
+import ProgressIndicator from '../Loader/Loader';
+import Modal from '../Modal/Modal';
 
 const Catalogue = (): JSX.Element => {
-  const huts: Hut[] = useAppSelector((state: RootState) => state.cards.huts);
+  const dispatch = useAppDispatch();
+  const { query, result, isLoading, isSelected } = useAppSelector((state: RootState) => state.api);
 
-  const openModalWindow = (hutId: string): void => {
-    console.log(hutId);
-  };
+  useEffect(() => {
+    const requestUrl = query ? `${API_PATH}${SEARCH_QUERY}${query}` : API_PATH;
+    dispatch(fetchApi(requestUrl));
+  }, [dispatch, query]);
 
   return (
     <div className={styles.wrapper}>
-      <div className={styles.catalogue}>
-        {huts.length > 0 &&
-          huts.map((item: Hut) => (
-            <Card key={item.id} modalCallback={openModalWindow} hut={item} />
-          ))}
-      </div>
+      {isLoading && <ProgressIndicator />}
+      {!isLoading && (
+        <div className={styles.catalogue}>
+          {result.length > 0 && result.map((item: Hut) => <Card key={item.id} hut={item} />)}
+          {result.length === 0 && <p className={styles.error}>No data found</p>}
+          {isSelected && <Modal />}
+        </div>
+      )}
     </div>
   );
 };

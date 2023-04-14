@@ -1,13 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import hutsSlice from './slices/hutsSlice';
 import formSlice from './slices/formSlice';
-import searchSlice from './slices/searchSlice';
+import apiSlice from './slices/apiSlice';
 
 const store = configureStore({
   reducer: {
-    cards: hutsSlice,
     form: formSlice,
-    search: searchSlice,
+    api: apiSlice,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -1,18 +1,21 @@
 import React from 'react';
 import Hut from './Card.types';
 import styles from './Card.module.css';
+import { useAppDispatch } from '../../../store/hooks';
+import { fetchApi, setSelected } from '../../../store/slices/apiSlice';
+import { API_PATH, ID_QUERY } from '../../../utils/consts';
 
 type Props = {
   hut: Hut;
-  modalCallback: (hutId: string) => void;
 };
 
 const Card = (props: Props): JSX.Element => {
-  const { hut, modalCallback } = props;
-  const { alt, image, name, altitude, id } = hut;
+  const { alt, image, name, altitude, id } = props.hut;
+  const dispatch = useAppDispatch();
 
   const handleClick = (e: React.MouseEvent<HTMLElement>) => {
-    modalCallback(id);
+    dispatch(setSelected(true));
+    dispatch(fetchApi(`${API_PATH}${ID_QUERY}${id}`));
   };
 
   return (

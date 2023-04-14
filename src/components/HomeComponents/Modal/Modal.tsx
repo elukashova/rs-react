@@ -1,34 +1,25 @@
-import React, { SyntheticEvent, useEffect, useState } from 'react';
-import { API_PATH, ID_QUERY } from '../../../utils/consts';
-import Hut from '../Card/Card.types';
+import React, { SyntheticEvent } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { setSelected } from '../../../store/slices/apiSlice';
+import { RootState } from '../../../store/store';
 import styles from './Modal.module.css';
 
-type Props = {
-  hutId: string;
-  unselectHut: () => void;
-};
-
-const Modal = ({ hutId, unselectHut }: Props): JSX.Element => {
-  const [hut, setHut] = useState<Hut | null>(null);
-
-  useEffect(() => {
-    fetch(`${API_PATH}${ID_QUERY}${hutId}`)
-      .then((response: Response) => response.json())
-      .then((result: Hut[]) => setHut(result[0]));
-  });
+const Modal = (): JSX.Element => {
+  const dispatch = useAppDispatch();
+  const { selectedHut } = useAppSelector((state: RootState) => state.api);
 
   const handleClick = (e: SyntheticEvent) => {
     if (
       e.target instanceof HTMLButtonElement ||
       (e.currentTarget instanceof HTMLDivElement && e.target === e.currentTarget)
     ) {
-      unselectHut();
+      dispatch(setSelected(false));
     }
   };
 
   return (
     <>
-      {hut && (
+      {selectedHut && (
         <div className={styles.background} onClick={handleClick}>
           <div className={styles.modal} data-testid="modal">
             <button
@@ -38,19 +29,19 @@ const Modal = ({ hutId, unselectHut }: Props): JSX.Element => {
               onClick={handleClick}
             ></button>
             <div className={styles.wrapper}>
-              <img className={styles.image} alt={hut.alt} src={hut.image} />
+              <img className={styles.image} alt={selectedHut.alt} src={selectedHut.image} />
               <div className={styles.details}>
-                <h3 className={styles.hut}>{hut.name}</h3>
+                <h3 className={styles.hut}>{selectedHut.name}</h3>
                 <div className={styles.altitude}>
-                  <p className={styles.heading}>Altitude:</p> {hut.altitude} mt
+                  <p className={styles.heading}>Altitude:</p> {selectedHut.altitude} mt
                 </div>
                 <div className={styles.province}>
-                  <p className={styles.heading}>Province:</p> {hut.province}
+                  <p className={styles.heading}>Province:</p> {selectedHut.province}
                 </div>
                 <div className={styles.location}>
-                  <p className={styles.heading}>Location:</p> {hut.location}
+                  <p className={styles.heading}>Location:</p> {selectedHut.location}
                 </div>
-                <p className={styles.description}>{hut.description}</p>
+                <p className={styles.description}>{selectedHut.description}</p>
               </div>
             </div>
           </div>
