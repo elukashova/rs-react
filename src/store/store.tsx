@@ -1,15 +1,34 @@
 import { configureStore } from '@reduxjs/toolkit';
 import hutsReducer from './slices/hutsSlice';
 import Hut from '../components/HomeComponents/Card/Card.types';
+import Review from '../components/FormsComponents/ReviewCard/ReviewCard.types';
+import formSlice from './slices/formSlice';
 
 export interface State {
-  components: {
+  cards: {
     huts: Hut[];
+  };
+  form: {
+    reviews: Review[];
+    form: Review;
   };
 }
 
-export default configureStore({
+const store = configureStore({
   reducer: {
-    components: hutsReducer,
+    cards: hutsReducer,
+    form: formSlice,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActionPaths: ['payload.image'],
+        ignoredPaths: ['form.form.image'],
+      },
+    }),
 });
+
+export default store;
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

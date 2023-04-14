@@ -8,12 +8,11 @@ import RadioStar from './RadioStar/Star';
 import { useForm } from 'react-hook-form';
 import { Errors } from './Validation/Error/Error.consts';
 import useValidation from './Validation/Validation';
+import { useAppDispatch, useAppSelector } from '../../../store/hooks';
+import { RootState } from '../../../store/store';
+import { setReviewData } from '../../../store/slices/formSlice';
 
-type Props = {
-  reviewCallback: (review: Review) => void;
-};
-
-const Form = (props: Props): JSX.Element => {
+const Form = (): JSX.Element => {
   const {
     register,
     handleSubmit,
@@ -27,17 +26,16 @@ const Form = (props: Props): JSX.Element => {
   const { onFileUpload, onArrivalChange, dateRules, avatarRules } = useValidation();
   const ratingsDescOrder: number[] = [5, 4, 3, 2, 1];
 
+  const dispatch = useAppDispatch();
+  const reviews = useAppSelector((state: RootState) => state.form.reviews);
+
   const onSubmit = (review: Review) => {
     setTimeout(() => reset(), 1500);
 
     const url: string =
       typeof review.image === 'string' ? review.image : URL.createObjectURL(review.image[0]);
     setTimeout(
-      () =>
-        props.reviewCallback({
-          ...review,
-          image: url,
-        }),
+      () => dispatch(setReviewData([...reviews, { ...review, image: url, id: reviews.length }])),
       1500
     );
   };

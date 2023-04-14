@@ -1,23 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
 import data from '../../assets/data/cardsData';
-import Hut from '../../components/HomeComponents/Card/Card.types';
 
-const hutsReducer = createSlice({
-  name: 'huts',
+const hutsSlice = createSlice({
+  name: 'components',
   initialState: {
     huts: data,
   },
   reducers: {
     setComponents(state, action) {
-      data.filter(
-        (item: Hut) =>
-          !action.payload.value ||
-          item.name.toLowerCase().includes(action.payload.value.toLowerCase())
-      );
+      state.huts = action.payload;
     },
   },
 });
 
-export const { setComponents } = hutsReducer.actions;
+export const { setComponents } = hutsSlice.actions;
 
-export default hutsReducer.reducer;
+export default hutsSlice.reducer;

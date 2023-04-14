@@ -2,12 +2,12 @@ import React from 'react';
 import styles from './ReviewsList.module.css';
 import ReviewCard from '../ReviewCard/ReviewCard';
 import Review from '../ReviewCard/ReviewCard.types';
+import { useAppSelector } from '../../../store/hooks';
+import { State } from '../../../store/store';
 
-type Props = {
-  reviews: Review[];
-};
+const ReviewsList = (): JSX.Element => {
+  const reviews = useAppSelector((state: State) => state.form.reviews);
 
-const ReviewsList = ({ reviews }: Props): JSX.Element => {
   return (
     <div className={styles.reviews}>
       {reviews.map((item: Review) => (

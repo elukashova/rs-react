@@ -14,7 +14,7 @@ type Props = {
 };
 
 const Catalogue = ({ query }: Props): JSX.Element => {
-  const huts: Hut[] = useSelector((state: State) => state.components.huts);
+  const huts: Hut[] = useSelector((state: State) => state.cards.huts);
   // const [huts, setHuts] = useState<Hut[]>([]);
   // const [selectedHut, setSelectedHut] = useState<string | null>(null);
   // const [loading, setLoading] = useState<boolean>(false);
