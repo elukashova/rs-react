@@ -1,9 +1,8 @@
 import React, { PropsWithChildren } from 'react';
 import { render } from '@testing-library/react';
 import type { RenderOptions } from '@testing-library/react';
-import type { PreloadedState } from '@reduxjs/toolkit';
+import type { PreloadedState, ThunkMiddleware } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-
 import { AppStore, RootState, setupStore } from '../store/store';
 import { vi } from 'vitest';
 
@@ -48,7 +47,7 @@ export function renderWithProviders(
   return { store, ...render(ui, { wrapper: Wrapper, ...renderOptions }) };
 }
 
-const thunkMiddleware =
+const thunkMiddleware: ThunkMiddleware =
   ({ dispatch, getState }) =>
   (next) =>
   (action) => {

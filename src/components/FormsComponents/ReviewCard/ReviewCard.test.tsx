@@ -2,8 +2,9 @@ import { screen } from '@testing-library/react';
 import React from 'react';
 import ReviewCard from './ReviewCard';
 import Review from './ReviewCard.types';
-import urlForTest from '../../../assets/images/coca.jpg';
 import { renderWithProviders } from '../../../test/test-utils';
+
+const urlForTest = '../../../assets/images/coca.jpg';
 
 const mockData: Review = {
   name: 'Name',

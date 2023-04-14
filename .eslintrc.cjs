@@ -23,6 +23,15 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint', 'react', 'prettier', 'react-hooks'],
+  overrides: [
+    {
+      files: ['*.test.test'],
+
+      rules: {
+        'jest/valid-expect': 0,
+      },
+    },
+  ],
   rules: {
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',

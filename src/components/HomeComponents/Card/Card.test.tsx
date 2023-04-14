@@ -22,6 +22,7 @@ describe('<Card />', () => {
     const card = await screen.findByTestId('catalogue-card');
     fireEvent.click(card);
     const { store, invoke } = create();
+
     invoke((dispatch, getState) => {
       dispatch(dataForTest.id);
       getState();

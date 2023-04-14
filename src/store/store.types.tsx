@@ -17,3 +17,8 @@ export type ApiState = {
   isSelected: boolean;
   selectedHut: Hut | null;
 };
+
+export type State = {
+  form: FormState;
+  api: ApiState;
+};

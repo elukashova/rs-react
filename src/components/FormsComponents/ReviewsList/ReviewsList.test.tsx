@@ -1,11 +1,12 @@
 import { screen } from '@testing-library/react';
 import ReviewsList from './ReviewsList';
 import React from 'react';
-import urlForTest from '../../../assets/images/coca.jpg';
 import Review from '../ReviewCard/ReviewCard.types';
 import { setupStore } from '../../../store/store';
 import { setReviewData } from '../../../store/slices/formSlice';
 import { renderWithProviders } from '../../../test/test-utils';
+
+const urlForTest = '../../../assets/images/coca.jpg';
 
 const mockData: Review[] = [
   {
