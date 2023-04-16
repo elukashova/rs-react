@@ -41,7 +41,7 @@ const apiReducer = createSlice({
         if (!state.isSelected) {
           state.result = action.payload;
         }
-        if (!state.selectedHut) {
+        if (state.isSelected) {
           state.selectedHut = action.payload[0];
         }
         state.isLoading = false;
