@@ -1,0 +1,25 @@
+.label-radio {
+  display: none;
+}
+
+.radio {
+  width: calc(.9em + .8vw);
+  height: calc(.9em + .8vw);
+  appearance: none;
+  background-color: #FFD6BA;
+  cursor: pointer;
+  transition: all .3s;
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+}
+
+.radio:hover,
+.radio:hover ~ .radio,
+.radio:not(:checked):hover ~ .radio:hover ~ .radio {
+  background-color: #BEE3DB;
+}
+
+.radio:checked,
+.radio:checked ~ .radio,
+.radio:not(:checked):hover ~ .radio:checked {
+  background-color: #89B0AE;
+}
