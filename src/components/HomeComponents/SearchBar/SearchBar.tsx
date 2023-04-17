@@ -19,7 +19,7 @@ const SearchBar = (): JSX.Element => {
     event: SyntheticEvent<HTMLInputElement, KeyboardEvent>
   ): void => {
     if (event.target instanceof HTMLInputElement) {
-      if (event.nativeEvent.code === 'Enter') {
+      if (event.nativeEvent.code === 'Enter' || event.nativeEvent.key === 'Enter') {
         const { value } = event.target;
         dispatch(setSearchQuery(value));
       }
