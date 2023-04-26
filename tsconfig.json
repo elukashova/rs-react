@@ -15,6 +15,20 @@
     "baseUrl": "./src",
     "resolveJsonModule": true
   },
-  "include": ["./src/**/*", "styled.d.ts"],
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+    "transpileOnly": true
+  },
+  "paths": {
+    "@/*": [
+      "src/*"
+    ],
+    "*": [
+      "*",
+      "src/*"
+    ]
+  },
+  "include": ["./src/**/*", "styled.d.ts", "vite.config.ts", "server.tsx"],
   "exclude": ["node_modules", "./src/**/*.test.tsx", "./src/**/test-utils.tsx"]
 }
