@@ -5,16 +5,18 @@
   "type": "module",
   "scripts": {
     "dev": "nodemon",
-    "build": "npm run lint && tsc --noEmit && npm run build:client && npm run build:server",
-    "build:client": "vite build --outDir ../dist/client",
-    "build:server": "vite build --outDir ../dist/server --ssr entry-server.ts",
-    "start": "ts-node server/server.ts",
+    "start": "ts-node server.tsx",
     "preview": "vite preview",
     "lint": "eslint . --ext .tsx --ext .tsx",
     "prepare": "husky install",
     "lintstaged": "lint-staged --relative",
     "coverage": "vitest run --coverage",
-    "test": "vitest"
+    "test": "vitest",
+    "cy:start-open": "start-server-and-test dev http://localhost:3000 cy:open",
+    "cy:start-run": "start-server-and-test dev http://localhost:3000 cy:run",
+    "cy:open": "cypress open && nyc report --reporter=text --reporter=text-summary",
+    "cy:run": "cypress run && nyc report --reporter=text --reporter=text-summary",
+    "cy:clean-coverage": "npx rimraf cypress-coverage"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
@@ -26,9 +28,12 @@
     "react-router-dom": "^6.8.2"
   },
   "devDependencies": {
+    "@cypress/code-coverage": "^3.10.4",
+    "@istanbuljs/nyc-config-typescript": "^1.0.2",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
+    "@types/cypress__code-coverage": "^3.10.0",
     "@types/express": "^4.17.17",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
@@ -36,10 +41,12 @@
     "@typescript-eslint/parser": "^5.54.1",
     "@vitejs/plugin-react": "^3.1.0",
     "@vitest/coverage-c8": "^0.29.3",
+    "cypress": "^12.10.0",
     "eslint": "^8.35.0",
     "eslint-config-prettier": "^8.7.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-import-resolver-typescript": "^3.5.3",
+    "eslint-plugin-cypress": "^2.13.2",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.32.2",
@@ -54,6 +61,7 @@
     "typescript": "^4.9.3",
     "vite": "^4.1.0",
     "vite-plugin-eslint": "^1.8.1",
+    "vite-plugin-istanbul": "^4.0.1",
     "vitest": "^0.29.2"
   }
 }

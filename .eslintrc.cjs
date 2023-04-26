@@ -22,7 +22,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'react', 'prettier', 'react-hooks'],
+  plugins: ['@typescript-eslint', 'react', 'prettier', 'react-hooks', 'cypress'],
   overrides: [
     {
       files: ['*.test.test'],
