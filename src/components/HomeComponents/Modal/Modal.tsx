@@ -21,11 +21,12 @@ const Modal = (): JSX.Element => {
     <>
       {selectedHut && (
         <div className={styles.background} onClick={handleClick}>
-          <div className={styles.modal} data-testid="modal">
+          <div className={styles.modal} data-testid="modal" data-cy="modal">
             <button
               type="button"
               className={styles.btn}
               data-testid="close-btn"
+              data-cy="close-btn"
               onClick={handleClick}
             ></button>
             <div className={styles.wrapper}>

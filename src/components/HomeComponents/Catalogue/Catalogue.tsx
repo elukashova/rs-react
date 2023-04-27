@@ -24,7 +24,11 @@ const Catalogue = (): JSX.Element => {
       {!isLoading && (
         <div className={styles.catalogue}>
           {result.length > 0 && result.map((item: Hut) => <Card key={item.id} hut={item} />)}
-          {result.length === 0 && <p className={styles.error}>No data found</p>}
+          {result.length === 0 && (
+            <p className={styles.error} data-cy="no-data">
+              No data found
+            </p>
+          )}
           {isSelected && <Modal />}
         </div>
       )}

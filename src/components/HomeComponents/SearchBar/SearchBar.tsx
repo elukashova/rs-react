@@ -36,6 +36,7 @@ const SearchBar = (): JSX.Element => {
         value={searchValue}
         placeholder="Search..."
         autoComplete="off"
+        data-cy="search-input"
       />
       <svg className={styles.icon} aria-hidden="true" viewBox="0 0 24 24">
         <g>

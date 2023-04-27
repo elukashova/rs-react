@@ -19,7 +19,12 @@ const Card = (props: Props): JSX.Element => {
   };
 
   return (
-    <div className={styles.card} data-testid="catalogue-card" onClick={handleClick}>
+    <div
+      className={styles.card}
+      data-testid="catalogue-card"
+      data-cy="catalogue-card"
+      onClick={handleClick}
+    >
       <img className={styles.image} alt={alt} src={image} />
       <div className={styles.bottom}>
         <p className={styles.name}>{name}</p>

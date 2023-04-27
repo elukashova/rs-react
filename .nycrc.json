@@ -8,10 +8,14 @@
       "src/**/*.tsx"
     ],
     "exclude": [
+      "src/assets/**/*.*",
+      "src/store/**/*.*",
+      "src/utils/**/*.*",
       "cypress/**/*.*",
       "**/*.d.ts",
       "**/*.cy.tsx",
       "**/*.cy.ts",
-      "**/*.test.tsx"
+      "**/*.test.tsx",
+      "**/*.types.tsx"
     ]
 }
