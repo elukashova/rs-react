@@ -21,10 +21,10 @@ const Header = (): JSX.Element => {
           <NavLink to="/" end data-testid="nav-link">
             Home
           </NavLink>
-          <NavLink to="/about" data-testid="nav-link">
+          <NavLink to="/about" data-testid="nav-link" data-cy="nav-link-about">
             About us
           </NavLink>
-          <NavLink to="/forms" data-testid="nav-link">
+          <NavLink to="/forms" data-testid="nav-link" data-cy="nav-link-form">
             Forms
           </NavLink>
         </nav>
