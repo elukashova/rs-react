@@ -11,6 +11,7 @@ import useValidation from './Validation/Validation';
 import { useAppDispatch, useAppSelector } from '../../../store/hooks';
 import { RootState } from '../../../store/store';
 import { setReviewData } from '../../../store/slices/formSlice';
+import { FormData } from './Form.types';
 
 const Form = (): JSX.Element => {
   const {
@@ -18,24 +19,27 @@ const Form = (): JSX.Element => {
     handleSubmit,
     reset,
     formState: { errors, isSubmitSuccessful },
-  } = useForm<Review>({
+  } = useForm<FormData>({
     criteriaMode: 'all',
     mode: 'onSubmit',
     reValidateMode: 'onSubmit',
   });
-  const { onFileUpload, onArrivalChange, dateRules, avatarRules } = useValidation();
+  const { onArrivalChange, dateRules, avatarRules } = useValidation();
   const ratingsDescOrder: number[] = [5, 4, 3, 2, 1];
 
   const dispatch = useAppDispatch();
   const reviews = useAppSelector((state: RootState) => state.form.reviews);
 
-  const onSubmit = (review: Review) => {
+  const onSubmit = (review: FormData) => {
     setTimeout(() => reset(), 1500);
 
-    const url: string =
-      typeof review.image === 'string' ? review.image : URL.createObjectURL(review.image[0]);
+    const newReview: Review = {
+      ...review,
+      image: URL.createObjectURL(review.image[0]),
+    };
+
     setTimeout(
-      () => dispatch(setReviewData([...reviews, { ...review, image: url, id: reviews.length }])),
+      () => dispatch(setReviewData([...reviews, { ...newReview, id: reviews.length }])),
       1500
     );
   };
@@ -53,6 +57,7 @@ const Form = (): JSX.Element => {
               message: Errors.name,
             },
           })}
+          data-cy="name"
         />
         {errors.name?.types && <ValidationError message={errors.name.message} />}
       </div>
@@ -64,6 +69,7 @@ const Form = (): JSX.Element => {
           {...register('hut', {
             required: Errors.required,
           })}
+          data-cy="hut"
         >
           <option hidden value="">
             --Choose a hut--
@@ -86,6 +92,7 @@ const Form = (): JSX.Element => {
               required: Errors.required,
               validate: dateRules.realDate,
             })}
+            data-cy="arrival"
             onChange={onArrivalChange}
           />
           {errors.arrival?.types && <ValidationError message={errors.arrival.message} />}
@@ -98,6 +105,7 @@ const Form = (): JSX.Element => {
               required: Errors.required,
               validate: dateRules,
             })}
+            data-cy="departure"
           />
           {errors.departure?.types && <ValidationError message={errors.departure.message} />}
         </div>
@@ -128,7 +136,7 @@ const Form = (): JSX.Element => {
             required: Errors.required,
             validate: avatarRules,
           })}
-          onChange={onFileUpload}
+          data-cy="image"
         />
         {errors.image?.types && <ValidationError message={errors.image.message} />}
       </div>
@@ -142,6 +150,7 @@ const Form = (): JSX.Element => {
             {...register('privacy', {
               required: Errors.required,
             })}
+            data-cy="privacy"
           />
           <p>I consent to the processing of my personal data</p>
         </div>
@@ -149,9 +158,17 @@ const Form = (): JSX.Element => {
       </div>
 
       <div>
-        <input className={styles.submit} type="submit" value="submit" data-testid="submit" />
+        <input
+          className={styles.submit}
+          type="submit"
+          value="submit"
+          data-testid="submit"
+          data-cy="submit"
+        />
         {isSubmitSuccessful && (
-          <p className={styles.confirmation}>Your review has been successfully submitted!</p>
+          <p className={styles.confirmation} data-cy="submit-message">
+            Your review has been successfully submitted!
+          </p>
         )}
       </div>
     </form>

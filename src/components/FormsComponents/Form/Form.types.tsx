@@ -32,3 +32,13 @@ export type UseFormReturn<TFieldValues extends FieldValues = FieldValues> = {
   register: UseFormRegister<TFieldValues>;
   setFocus: UseFormSetFocus<TFieldValues>;
 };
+
+export type FormData = {
+  name: string;
+  arrival: string;
+  hut: string;
+  departure: string;
+  rating: string;
+  image: FileList;
+  privacy: boolean;
+};

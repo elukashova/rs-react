@@ -19,6 +19,7 @@ const RadioStar = ({ rating, register }: Props): JSX.Element => {
         value={rating}
         id={`radio${rating}`}
         data-testid={`radio${rating}`}
+        data-cy="rating"
         {...register}
       />
     </>

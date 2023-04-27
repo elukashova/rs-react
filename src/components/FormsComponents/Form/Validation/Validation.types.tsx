@@ -1,12 +1,11 @@
 export type ValidationHook = {
-  onFileUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onArrivalChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   dateRules: DateRules;
   avatarRules: FileRules;
 };
 
 export type FileRules = {
-  acceptedFormats: () => boolean | string;
+  acceptedFormats: (files: FileList) => boolean | string;
 };
 
 export type DateRules = {
