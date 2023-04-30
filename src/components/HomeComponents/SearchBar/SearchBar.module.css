@@ -1,0 +1,46 @@
+.wrapper {
+  width: calc(10% + 8em + 7vw);
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.input {
+  width: 100%;
+  padding: .8rem 1.5rem;
+  margin-right: -2rem;
+  align-self: flex-start;
+  border: none;
+  border-radius: 20px;
+  font-size: calc(.7em + .4vw);
+  background-color: #F4F2F2;
+  color: #89B0AE;
+  transition: all ease-in-out .5s;
+}
+
+.input:hover, .input:focus {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+}
+
+.input:focus {
+  background-color: #F0EEEE;
+  outline: none;
+}
+
+.input::placeholder {
+  font-weight: 300;
+  color: #C4CBCB;
+}
+
+.input:focus + .btn {
+  background-color: #F0EEEE;
+}
+
+.icon {
+  margin-right: 1.5em;
+  margin-bottom: .1em;
+  height: 1.4em;
+  width: 1.4em;
+  fill: #89B0AE;
+}

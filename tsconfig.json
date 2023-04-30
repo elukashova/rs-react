@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "lib": ["dom", "esnext", "dom.iterable"],
+    "jsx": "react-jsx",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "noFallthroughCasesInSwitch": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "baseUrl": "./src",
+    "resolveJsonModule": true,
+    "types": ["node", "jest", "cypress", "express"],
+    "noEmit": true,
+    "isolatedModules": true,
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+    "transpileOnly": true
+  },
+  "paths": {
+    "@/*": [
+      "src/*"
+    ],
+    "*": [
+      "*",
+      "src/*"
+    ]
+  },
+  "include": ["./src/**/*", "styled.d.ts", "server.ts"],
+  "exclude": ["node_modules", "cypress", "./cypress.config.ts", "**/*.cy.ts"]
+}
